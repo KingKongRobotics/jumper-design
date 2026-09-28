@@ -1,0 +1,7 @@
+# Observed working Windows/Python 3.12.10 environment, not a universal lock file.
+numpy==1.26.4
+scipy==1.17.1
+trimesh==4.12.2
+mujoco==3.10.0
+fast-simplification==0.2.0
+rtree==1.4.1

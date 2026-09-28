@@ -1,0 +1,79 @@
+{
+  "schema": "kk-scene-package/1",
+  "id": "switchback-slopes",
+  "title": "Switchback Slopes",
+  "version": "1.1.2",
+  "use": "watching",
+  "exportedBy": {
+    "repo": "robot-shell-workflow",
+    "tool": "scripts/build_authored_challenges.py"
+  },
+  "source": {
+    "repository": "robot-shell-workflow",
+    "authoredGround": true
+  },
+  "requiredCapabilities": [
+    "rigid"
+  ],
+  "world": {
+    "file": "scene.xml",
+    "assetDir": "",
+    "terrainType": "none",
+    "ground": {
+      "geom": "ground"
+    },
+    "counts": {
+      "geoms": 19,
+      "bodies": 0,
+      "lights": 1,
+      "textures": 0,
+      "materials": 19,
+      "meshes": 3
+    },
+    "attach": {
+      "prefix": "scn_"
+    }
+  },
+  "props": [],
+  "flex": [],
+  "lights": [
+    {
+      "name": "sun"
+    }
+  ],
+  "cameras": [],
+  "spawn": {
+    "position": [
+      -2.22,
+      -1.1,
+      0
+    ],
+    "yaw": 0
+  },
+  "files": {
+    "README.md": {
+      "bytes": 508,
+      "sha256": "000bf0dd6a9663789c25c8ef31dc1664b5b395905a296d2e423f238a22500176"
+    },
+    "assets/ramp_0.obj": {
+      "bytes": 234,
+      "sha256": "e25740a4c58f9e8c8deb1dd179a14e646c20f5a37cbf724888d60bcee5b192d5"
+    },
+    "assets/ramp_1.obj": {
+      "bytes": 234,
+      "sha256": "1558292ad4769f9ce66101bf16dc0d8a13ea8b75ed1ebdf326d0b82ed8c53b77"
+    },
+    "assets/ramp_2.obj": {
+      "bytes": 234,
+      "sha256": "b126e8a13668d67e00e859fa43026767a57c03586733a5c8e380be8cb5f53434"
+    },
+    "scene.xml": {
+      "bytes": 6333,
+      "sha256": "813d0519928a9c77feb363332a731b6d82393c3069976dfc8b2bb7a43fab1dda"
+    },
+    "visual-appearance.json": {
+      "bytes": 5488,
+      "sha256": "03806843197545275adac462ad7a3c82e8fcec382f2d981848c960b5e21a24cf"
+    }
+  }
+}

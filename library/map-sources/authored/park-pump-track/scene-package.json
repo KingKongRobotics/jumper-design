@@ -1,0 +1,96 @@
+{
+  "schema": "kk-scene-package/1",
+  "id": "park-pump-track",
+  "title": "Park Pump Track",
+  "version": "1.0.0",
+  "use": "watching",
+  "exportedBy": {
+    "repo": "robot-shell-workflow",
+    "tool": "scripts/build_park_pump_track.py"
+  },
+  "source": {
+    "repository": "robot-shell-workflow",
+    "authoredGround": true
+  },
+  "requiredCapabilities": [
+    "rigid",
+    "hfield"
+  ],
+  "world": {
+    "file": "scene.xml",
+    "assetDir": "",
+    "terrainType": "hfield",
+    "ground": {
+      "geom": "ground"
+    },
+    "counts": {
+      "geoms": 48,
+      "bodies": 0,
+      "lights": 1,
+      "textures": 0,
+      "materials": 17,
+      "meshes": 6
+    },
+    "attach": {
+      "prefix": "scn_"
+    }
+  },
+  "props": [],
+  "flex": [],
+  "lights": [
+    {
+      "name": "sun"
+    }
+  ],
+  "cameras": [],
+  "spawn": {
+    "position": [
+      -1.57,
+      -1.45,
+      0.052
+    ],
+    "yaw": 0
+  },
+  "files": {
+    "assets/asphalt_surface.obj": {
+      "bytes": 271653,
+      "sha256": "6d5ce6c3de5588002bdf734f2277276b1b169449a4565833f9afaef7b8489b2d"
+    },
+    "assets/crest_marks.obj": {
+      "bytes": 1172,
+      "sha256": "d71aea1a84f23c2e30a43618a7b60865a8434b33f4615812bdcd487c123e3f3a"
+    },
+    "assets/edge_inner.obj": {
+      "bytes": 44860,
+      "sha256": "e18b998a50813892cffa3da747b2d48ec5bc7905f0ec38ccbde4d6a034c5f411"
+    },
+    "assets/edge_outer.obj": {
+      "bytes": 44860,
+      "sha256": "9926ba50ec8543f83b329a145da36765c2d7bc70161fc859a28ca3e6aba85124"
+    },
+    "assets/grass_surface.obj": {
+      "bytes": 457948,
+      "sha256": "c62193bbdf6cb44c562dcdb7fff8df4972cf9a58177c5b5d80e248b6875b7056"
+    },
+    "assets/lap_center.obj": {
+      "bytes": 44860,
+      "sha256": "0930e38470d09068dc8e5b784589fce24beeefa027d35a5aa211773340156d9d"
+    },
+    "assets/terrain.png": {
+      "bytes": 12568,
+      "sha256": "28e1de769d44b46ff7fa5adfe95419eb3a59229c1e2afe3701a9e8d9d205150b"
+    },
+    "README.md": {
+      "bytes": 1834,
+      "sha256": "fdec5dd30bce7d39003572b1475268bd7e42d4790e62b660b901bf565b9d400d"
+    },
+    "scene.xml": {
+      "bytes": 11300,
+      "sha256": "9372978b6e5f48f3834f7477b416116e6869b9bf7b74d84580e3d3b4ef36f227"
+    },
+    "visual-appearance.json": {
+      "bytes": 5007,
+      "sha256": "40c1382e0aaff71bfefd2f8c55e816307cf26148754eacd6ca2a10817b1595e0"
+    }
+  }
+}

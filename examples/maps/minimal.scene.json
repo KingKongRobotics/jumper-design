@@ -1,0 +1,25 @@
+{
+  "$schema": "../../src/mjscene/scene.schema.json",
+  "name": "minimal",
+  "title": "Minimal Scene",
+  "description": "A flat ground plane and a falling box for toolchain validation.",
+  "objects": [
+    {
+      "name": "box_1",
+      "shape": "box",
+      "size": [
+        0.15,
+        0.15,
+        0.15
+      ],
+      "pos": [
+        0,
+        0,
+        0.8
+      ],
+      "material": "plastic_red",
+      "friction": "plastic",
+      "mass": 1.0
+    }
+  ]
+}

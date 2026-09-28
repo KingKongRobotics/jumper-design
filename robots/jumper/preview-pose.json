@@ -1,0 +1,43 @@
+{
+  "all_joint_limits_checked": true,
+  "base_height_m": 0.10704,
+  "corrections": {
+    "RF_J4_joint": {
+      "basis": "nearest value within latest authored URDF joint limit",
+      "display_position_rad": 0.1,
+      "source_limit_rad": [
+        0.1,
+        1.6
+      ],
+      "source_position_rad": 0.0
+    }
+  },
+  "joints": {
+    "LF_J0_joint": -0.5507,
+    "LF_J1_joint": -1.0658,
+    "LF_J2_joint": -0.4408,
+    "LF_J3_joint": -1.4226,
+    "LF_J4_joint": 0.0,
+    "LM_J0_joint": 0.0012,
+    "LM_J1_joint": 0.5356,
+    "LM_J2_joint": -1.8321,
+    "LR_J0_joint": 0.6313,
+    "LR_J1_joint": 0.5534,
+    "LR_J2_joint": -1.8708,
+    "RF_J0_joint": 0.5524,
+    "RF_J1_joint": -1.066,
+    "RF_J2_joint": 0.4414,
+    "RF_J3_joint": 1.4212,
+    "RF_J4_joint": 0.1,
+    "RM_J0_joint": -0.0012,
+    "RM_J1_joint": -0.5376,
+    "RM_J2_joint": 1.8364,
+    "RR_J0_joint": -0.6326,
+    "RR_J1_joint": -0.5548,
+    "RR_J2_joint": 1.8739
+  },
+  "mapping_method": "old_joint_to_old_child_to_audited_new_child_to_new_joint",
+  "scope": "Static nearest valid pose, not retained standing HOME or calibrated gripper. No controller, collision, dynamics or physical-fit certification.",
+  "source_audit_sha256": "510b3ea4afb7f344828f5b29a51983c586c561e424c9246140479360d59ab75c",
+  "source_legacy_pose_sha256": "57487e295490eb950f7cb5462a14bb3d4ea0647df6c62c2b87926025d4c6b138"
+}

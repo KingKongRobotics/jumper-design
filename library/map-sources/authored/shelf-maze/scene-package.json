@@ -1,0 +1,110 @@
+{
+  "schema": "kk-scene-package/1",
+  "id": "shelf-maze",
+  "title": "Shelf Maze",
+  "version": "1.1.2",
+  "use": "watching",
+  "exportedBy": {
+    "repo": "robot-shell-workflow",
+    "tool": "scripts/build_authored_challenges.py"
+  },
+  "source": {
+    "repository": "robot-shell-workflow",
+    "authoredGround": true
+  },
+  "requiredCapabilities": [
+    "rigid"
+  ],
+  "world": {
+    "file": "scene.xml",
+    "assetDir": "",
+    "terrainType": "none",
+    "ground": {
+      "geom": "ground"
+    },
+    "counts": {
+      "geoms": 62,
+      "bodies": 3,
+      "lights": 1,
+      "textures": 0,
+      "materials": 62,
+      "meshes": 0
+    },
+    "attach": {
+      "prefix": "scn_"
+    }
+  },
+  "props": [
+    {
+      "name": "prop:red",
+      "body": "prop:red",
+      "freeJoint": true,
+      "freeJointName": "prop:red:free",
+      "geoms": [
+        "red_cube"
+      ],
+      "position": [
+        -2.02,
+        -1.4,
+        0.036
+      ]
+    },
+    {
+      "name": "prop:blue",
+      "body": "prop:blue",
+      "freeJoint": true,
+      "freeJointName": "prop:blue:free",
+      "geoms": [
+        "blue_cube"
+      ],
+      "position": [
+        -0.65,
+        0.6,
+        0.036
+      ]
+    },
+    {
+      "name": "prop:yellow",
+      "body": "prop:yellow",
+      "freeJoint": true,
+      "freeJointName": "prop:yellow:free",
+      "geoms": [
+        "yellow_cube"
+      ],
+      "position": [
+        0.65,
+        -0.55,
+        0.036
+      ]
+    }
+  ],
+  "flex": [],
+  "lights": [
+    {
+      "name": "sun"
+    }
+  ],
+  "cameras": [],
+  "spawn": {
+    "position": [
+      -2.05,
+      -2.05,
+      0
+    ],
+    "yaw": 0
+  },
+  "files": {
+    "README.md": {
+      "bytes": 986,
+      "sha256": "aa0c11ffc371172a676132f0213692d980d20f2afe8bcf713653b68882bdb986"
+    },
+    "scene.xml": {
+      "bytes": 19142,
+      "sha256": "604aa832687dd040354254ab6b0b0e1ef01753cbe589e65596675f8df616946d"
+    },
+    "visual-appearance.json": {
+      "bytes": 17302,
+      "sha256": "def4427491f291e635de8f17492325d5dbc457b8b082e26f41aad637a785ccc0"
+    }
+  }
+}

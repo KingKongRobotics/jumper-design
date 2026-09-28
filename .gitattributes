@@ -1,0 +1,34 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.ps1 text eol=crlf
+# Preserve bytes in SHA-bound asset manifests and model descriptions across clones.
+library/** -text whitespace=cr-at-eol
+robots/** -text whitespace=cr-at-eol
+# Preserve producer bytes recorded in existing simulation reports as well.
+src/shellflow/simulation.py -text whitespace=cr-at-eol
+src/shellflow/urdf.py -text whitespace=cr-at-eol,-blank-at-eof
+src/shellflow/ams_colors.py -text whitespace=cr-at-eol
+scripts/preview_simulation.py -text whitespace=cr-at-eol
+# The curated platform archive is versioned through LFS; installed copies stay local.
+platforms/bundles/*.platform.zip filter=lfs diff=lfs merge=lfs -text
+library/assets/**/*.stl filter=lfs diff=lfs merge=lfs -text
+library/assets/**/*.3mf filter=lfs diff=lfs merge=lfs -text
+# Current portable display skins; historical versions live in Git/LFS history.
+library/skins/*.skin filter=lfs diff=lfs merge=lfs -text
+library/maps/*.map filter=lfs diff=lfs merge=lfs -text
+library/map-sources/**/assets/** filter=lfs diff=lfs merge=lfs -text
+robots/**/meshes/*.stl filter=lfs diff=lfs merge=lfs -text
+robots/**/meshes/*.STL filter=lfs diff=lfs merge=lfs -text
+robots/**/meshes/visual/*.stl filter=lfs diff=lfs merge=lfs -text
+robots/**/meshes/visual/*.STL filter=lfs diff=lfs merge=lfs -text
+library/simulations/**/meshes/*.stl filter=lfs diff=lfs merge=lfs -text
+library/simulations/**/meshes/*.STL filter=lfs diff=lfs merge=lfs -text
+
+LICENSE text eol=lf
+NOTICE text eol=lf
+*.mjs text eol=lf
+*.txt text eol=lf

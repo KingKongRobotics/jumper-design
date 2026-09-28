@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kingkong.tech/schemas/skin-package.schema.json",
+  "title": "Kingkong portable full-robot skin package",
+  "description": "Manifest for a .skin ZIP. Structural and trusted-baseline checks are performed by shellflow.skin_package.validate; JSON Schema alone cannot certify model preservation or physical fit.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "title", "version", "author", "license_id", "platform", "source", "manufacturing", "collision_policy", "inertia_policy", "physical_fit_tested", "physical_dynamics_validated", "files"],
+  "properties": {
+    "schema": {"const": "kk-skin-package/1"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 256},
+    "version": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "author": {"type": "string"},
+    "license_id": {"type": "string"},
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "profile_sha256", "baseline_sha256", "mechanical_platform", "mechanical_interface_sha256", "parent_link", "visual_replacement", "cad_unit", "simulation_unit", "frame"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+        "profile_sha256": {"$ref": "#/$defs/hash"},
+        "baseline_sha256": {"$ref": "#/$defs/hash"},
+        "mechanical_platform": {"const": "original-robot-v1"},
+        "mechanical_interface_sha256": {"$ref": "#/$defs/hash"},
+        "parent_link": {"type": "string", "minLength": 1},
+        "visual_replacement": {"type": "object", "required": ["mode"], "properties": {"mode": {"enum": ["dedicated_link", "split_base"]}}, "additionalProperties": {"type": "string"}},
+        "cad_unit": {"const": "millimeter"},
+        "simulation_unit": {"const": "meter"},
+        "frame": {"const": "original-robot-v1 CAD Z-up"}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shell_sha256", "report_sha256", "producer_code_sha256", "omitted_source_files"],
+      "properties": {
+        "shell_sha256": {"$ref": "#/$defs/hash"},
+        "report_sha256": {"$ref": "#/$defs/hash"},
+        "producer_code_sha256": {"type": "object", "additionalProperties": {"$ref": "#/$defs/hash"}},
+        "omitted_source_files": {"type": "array", "uniqueItems": true, "items": {"const": "preview.py"}}
+      }
+    },
+    "manufacturing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "shell_path", "ams_path", "preview_path"],
+      "properties": {
+        "status": {"const": "source_provided_unverified"},
+        "shell_path": {"const": "print/shell.stl"},
+        "ams_path": {"enum": [null, "print/ams.3mf"]},
+        "preview_path": {"enum": [null, "preview/preview.png"]}
+      }
+    },
+    "collision_policy": {"const": "baseline_preserved"},
+    "inertia_policy": {"const": "baseline_preserved"},
+    "physical_fit_tested": {"const": false},
+    "physical_dynamics_validated": {"const": false},
+    "files": {
+      "type": "object",
+      "minProperties": 7,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["bytes", "sha256"],
+        "properties": {"bytes": {"type": "integer", "minimum": 0}, "sha256": {"$ref": "#/$defs/hash"}}
+      }
+    }
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

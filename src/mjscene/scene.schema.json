@@ -1,0 +1,2156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/mjscene/scene.schema.json",
+  "title": "mjscene scene spec v1",
+  "description": "High-level MuJoCo scene description. Build with: python -m mjscene build <file>",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "description": "Identifier used for the output directory ([a-z0-9_-])",
+      "type": "string"
+    },
+    "title": {
+      "description": "Human-readable title shown in the web scene picker",
+      "type": "string"
+    },
+    "description": {
+      "description": "Scene purpose, also supplied to AI tools",
+      "type": "string"
+    },
+    "tags": {
+      "description": "Free-form tags, such as ['mobile-robot','indoor']",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "physics": {
+      "description": "Solver and integrator settings",
+      "$ref": "#/$defs/PHYSICS"
+    },
+    "sky": {
+      "description": "Skybox and fog",
+      "$ref": "#/$defs/SKY"
+    },
+    "lighting": {
+      "description": "Lighting",
+      "$ref": "#/$defs/LIGHTING"
+    },
+    "ground": {
+      "description": "Ground plane or height-field terrain",
+      "$ref": "#/$defs/GROUND"
+    },
+    "materials": {
+      "description": "Custom materials outside the preset library",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/MATERIAL"
+      }
+    },
+    "meshes": {
+      "description": "External mesh assets (OBJ/STL)",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/MESH"
+      }
+    },
+    "friction_profiles": {
+      "description": "Custom friction models",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FRICTION_PROFILE"
+      }
+    },
+    "defaults": {
+      "description": "Default contact parameters for all geoms",
+      "$ref": "#/$defs/DEFAULTS"
+    },
+    "objects": {
+      "description": "3D objects, static or dynamic",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OBJECT"
+      }
+    },
+    "assemblies": {
+      "description": "Prefabricated assemblies: rooms, tables, stairs, scattered objects, and more",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ASSEMBLY"
+      }
+    },
+    "robots": {
+      "description": "Import external robot MJCF",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ROBOT"
+      }
+    },
+    "contacts": {
+      "description": "Explicit collision pairs and exclusions for precise contact control",
+      "$ref": "#/$defs/CONTACTS"
+    },
+    "cameras": {
+      "description": "Fixed or tracking cameras",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CAMERA"
+      }
+    },
+    "spawn": {
+      "description": "Robot spawn and activity bounds; this framework compiles a site and leaves interpretation to export targets",
+      "$ref": "#/$defs/SPAWN"
+    },
+    "viewer": {
+      "description": "Web viewer hints that do not affect physics",
+      "$ref": "#/$defs/VIEWER"
+    },
+    "raw_mjcf": {
+      "description": "Escape hatch: MJCF fragment inserted verbatim inside <mujoco>",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "PHYSICS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timestep": {
+          "description": "Integration timestep (s); <= 0.002 is recommended for rigid contact",
+          "type": "number",
+          "minimum": 1e-05,
+          "maximum": 0.05,
+          "default": 0.002
+        },
+        "gravity": {
+          "description": "Gravity (m/s^2)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            -9.81
+          ]
+        },
+        "integrator": {
+          "description": "Integrator",
+          "enum": [
+            "Euler",
+            "RK4",
+            "implicit",
+            "implicitfast"
+          ],
+          "default": "implicitfast"
+        },
+        "solver": {
+          "description": "Constraint solver",
+          "enum": [
+            "PGS",
+            "CG",
+            "Newton"
+          ],
+          "default": "Newton"
+        },
+        "iterations": {
+          "description": "Main solver iterations",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 100
+        },
+        "ls_iterations": {
+          "description": "Line-search iterations",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 50
+        },
+        "cone": {
+          "description": "Friction cone; elliptic is more accurate but slower",
+          "enum": [
+            "pyramidal",
+            "elliptic"
+          ],
+          "default": "pyramidal"
+        },
+        "jacobian": {
+          "description": "Jacobian sparsity",
+          "enum": [
+            "dense",
+            "sparse",
+            "auto"
+          ],
+          "default": "auto"
+        },
+        "impratio": {
+          "description": "Normal-to-tangential impedance ratio; use 10-100 for slipping",
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 1000,
+          "default": 1.0
+        },
+        "wind": {
+          "description": "Wind speed (m/s); requires density or viscosity",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "density": {
+          "description": "Fluid density (kg/m^3); air=1.2, water=1000",
+          "type": "number",
+          "default": 0.0
+        },
+        "viscosity": {
+          "description": "Fluid viscosity; air=2e-5",
+          "type": "number",
+          "default": 0.0
+        },
+        "noslip_iterations": {
+          "description": "Additional no-slip iterations (5-20 for grasping tasks)",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        }
+      }
+    },
+    "SKY": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preset": {
+          "description": "Sky preset",
+          "enum": [
+            "clear_noon",
+            "day",
+            "dusk",
+            "indoor",
+            "mars",
+            "night",
+            "overcast",
+            "space",
+            "studio"
+          ],
+          "default": "day"
+        },
+        "top": {
+          "description": "Override zenith color, 0-1",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "bottom": {
+          "description": "Override horizon color, 0-1",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "haze": {
+          "description": "Override fog or haze color",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "fog": {
+          "description": "Enable fog",
+          "type": "boolean",
+          "default": true
+        },
+        "fog_range": {
+          "description": "Override fog start and end distances (m)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "LIGHT": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Name (generated when omitted)",
+          "type": "string"
+        },
+        "type": {
+          "description": "Light type",
+          "enum": [
+            "directional",
+            "spot",
+            "point"
+          ],
+          "default": "directional"
+        },
+        "pos": {
+          "description": "Position (m); directional lights use only direction",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            3.0
+          ]
+        },
+        "dir": {
+          "description": "Light direction (alternative to target)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "target": {
+          "description": "Light target point; dir is computed automatically",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "diffuse": {
+          "description": "Diffuse intensity and color",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.6,
+            0.6,
+            0.6
+          ]
+        },
+        "specular": {
+          "description": "Specular highlight intensity",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "ambient": {
+          "description": "Ambient contribution of this light",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "castshadow": {
+          "description": "Cast shadows (at most two shadow lights recommended)",
+          "type": "boolean",
+          "default": true
+        },
+        "cutoff": {
+          "description": "Spotlight cone half-angle (deg)",
+          "type": "number",
+          "minimum": 1,
+          "maximum": 90,
+          "default": 45.0
+        },
+        "exponent": {
+          "description": "Spotlight falloff exponent",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 128,
+          "default": 10.0
+        },
+        "attenuation": {
+          "description": "Point or spot attenuation [constant, linear, quadratic]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "active": {
+          "description": "Initially active",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "LIGHTING": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preset": {
+          "description": "Lighting preset used when lights is empty",
+          "enum": [
+            "afternoon",
+            "flat",
+            "indoor_office",
+            "night_moon",
+            "noon",
+            "studio_3point",
+            "sunset",
+            "warehouse"
+          ],
+          "default": "noon"
+        },
+        "ambient": {
+          "description": "Override global ambient light",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "headlight": {
+          "description": "Enable camera-following headlight",
+          "type": "boolean",
+          "default": false
+        },
+        "shadows": {
+          "description": "Global shadow switch",
+          "type": "boolean",
+          "default": true
+        },
+        "shadow_quality": {
+          "description": "Shadow-map resolution. The web limit is 4096, so ultra only benefitsthe native MuJoCo viewer",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "ultra"
+          ],
+          "default": "high"
+        },
+        "lights": {
+          "description": "Explicit lights; overrides preset when supplied",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LIGHT"
+          }
+        },
+        "extra_lights": {
+          "description": "Additional lights layered over the preset",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LIGHT"
+          }
+        }
+      }
+    },
+    "TERRAIN": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "description": "Terrain generator",
+          "enum": [
+            "hills",
+            "rough",
+            "bumps",
+            "dunes",
+            "crater",
+            "slope",
+            "steps",
+            "flat"
+          ],
+          "default": "hills"
+        },
+        "seed": {
+          "description": "Random seed for reproducible results",
+          "type": "integer",
+          "default": 0
+        },
+        "amplitude": {
+          "description": "Maximum height variation (m); ground.height_scale overrides it",
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 20.0,
+          "default": 0.3
+        },
+        "frequency": {
+          "description": "Noise frequency; higher values produce finer detail",
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 64.0,
+          "default": 3.0
+        },
+        "octaves": {
+          "description": "Fractal noise octaves",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "default": 4
+        },
+        "resolution": {
+          "description": "Height-field resolution (samples per side)",
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 1024,
+          "default": 128
+        },
+        "flat_radius": {
+          "description": "Flat radius around the center (m) for robot placement",
+          "type": "number",
+          "default": 0.0
+        },
+        "slope": {
+          "description": "Noise added when kind=slope; height_scale/size determines the actual slope",
+          "type": "number",
+          "default": 0.0
+        },
+        "step_height": {
+          "description": "Height per step when kind=steps (m)",
+          "type": "number",
+          "default": 0.15
+        },
+        "step_count": {
+          "description": "Number of steps when kind=steps",
+          "type": "integer",
+          "default": 6
+        }
+      }
+    },
+    "GROUND": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "Ground type",
+          "enum": [
+            "plane",
+            "heightfield",
+            "none"
+          ],
+          "default": "plane"
+        },
+        "size": {
+          "description": "Half-size (m); a plane is infinite, so this only affects rendering extent",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "default": [
+            20.0,
+            20.0
+          ]
+        },
+        "pos": {
+          "description": "Ground origin",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "material": {
+          "description": "Material name, preset or custom",
+          "type": "string",
+          "examples": [
+            "aluminium",
+            "asphalt",
+            "brick",
+            "cardboard",
+            "checker_light",
+            "concrete",
+            "foam",
+            "glass",
+            "grass",
+            "grid",
+            "mars_soil",
+            "metal",
+            "plastic_blue",
+            "plastic_green",
+            "plastic_red",
+            "plastic_white",
+            "plastic_yellow",
+            "rubber",
+            "safety_orange",
+            "sand",
+            "snow",
+            "steel_dark",
+            "target_marker",
+            "wall_paint",
+            "wood",
+            "wood_dark"
+          ],
+          "default": "grid"
+        },
+        "friction": {
+          "description": "Friction model name or [sliding, torsional, rolling]",
+          "anyOf": [
+            {
+              "type": "string",
+              "examples": [
+                "asphalt",
+                "cardboard",
+                "carpet",
+                "concrete",
+                "frictionless",
+                "glass",
+                "grass",
+                "gravel",
+                "greased_metal",
+                "grippy_rubber",
+                "ice",
+                "plastic",
+                "polished_floor",
+                "rubber",
+                "sand",
+                "steel_on_steel",
+                "wood"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          ],
+          "default": "concrete"
+        },
+        "condim": {
+          "description": "Contact dimension 1/3/4/6 (defaults to the friction model suggestion)",
+          "type": "integer",
+          "enum": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "contact": {
+          "description": "Contact stiffness preset",
+          "type": "string",
+          "examples": [
+            "bouncy",
+            "default",
+            "rigid",
+            "soft",
+            "squishy"
+          ]
+        },
+        "grid_spacing": {
+          "description": "Third plane size component: rendered grid spacing",
+          "type": "number",
+          "default": 1.0
+        },
+        "terrain": {
+          "description": "Terrain parameters when type=heightfield",
+          "$ref": "#/$defs/TERRAIN"
+        },
+        "elevation_file": {
+          "description": "Use an existing grayscale PNG height map relative to the spec directory",
+          "type": "string"
+        },
+        "height_scale": {
+          "description": "Height-field z scale (m), equal to maximum elevation. Defaults to terrain.amplitude (or step_height times step_count for steps)",
+          "type": "number"
+        },
+        "base_depth": {
+          "description": "Height-field base depth (m)",
+          "type": "number",
+          "default": 0.5
+        }
+      }
+    },
+    "TEXTURE": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "builtin": {
+          "description": "Built-in MuJoCo procedural texture",
+          "enum": [
+            "checker",
+            "gradient",
+            "flat"
+          ],
+          "default": "checker"
+        },
+        "file": {
+          "description": "Use an external image relative to the spec directory",
+          "type": "string"
+        },
+        "generator": {
+          "description": "Use the framework's procedural texture generator for wood or fabric",
+          "enum": [
+            "fabric_weave",
+            "wood_planks"
+          ]
+        },
+        "params": {
+          "description": "Parameters passed to generator; invalid names report the available options"
+        },
+        "rgb1": {
+          "description": "Primary color",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.3,
+            0.3,
+            0.3
+          ]
+        },
+        "rgb2": {
+          "description": "Secondary color",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.4,
+            0.4,
+            0.4
+          ]
+        },
+        "mark": {
+          "description": "Mark pattern",
+          "enum": [
+            "none",
+            "edge",
+            "cross",
+            "random"
+          ],
+          "default": "none"
+        },
+        "markrgb": {
+          "description": "Mark color",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "width": {
+          "description": "Texture width",
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 4096,
+          "default": 256
+        },
+        "height": {
+          "description": "Texture height",
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 4096,
+          "default": 256
+        },
+        "random": {
+          "description": "Dot density when mark=random",
+          "type": "number",
+          "default": 0.01
+        }
+      }
+    },
+    "MATERIAL": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Material name referenced by objects",
+          "type": "string"
+        },
+        "base": {
+          "description": "Inherit a preset material and override selected properties",
+          "type": "string",
+          "examples": [
+            "aluminium",
+            "asphalt",
+            "brick",
+            "cardboard",
+            "checker_light",
+            "concrete",
+            "foam",
+            "glass",
+            "grass",
+            "grid",
+            "mars_soil",
+            "metal",
+            "plastic_blue",
+            "plastic_green",
+            "plastic_red",
+            "plastic_white",
+            "plastic_yellow",
+            "rubber",
+            "safety_orange",
+            "sand",
+            "snow",
+            "steel_dark",
+            "target_marker",
+            "wall_paint",
+            "wood",
+            "wood_dark"
+          ]
+        },
+        "rgba": {
+          "description": "Color and opacity",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4,
+          "default": [
+            0.7,
+            0.7,
+            0.7,
+            1.0
+          ]
+        },
+        "reflectance": {
+          "description": "MuJoCo reflectance, 0-1",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.0
+        },
+        "shininess": {
+          "description": "Highlight sharpness, 0-1",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.3
+        },
+        "specular": {
+          "description": "Specular intensity, 0-1",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.3
+        },
+        "emission": {
+          "description": "Emission, 0-1",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.0
+        },
+        "metallic": {
+          "description": "PBR metallic value, 0-1 (web rendering)",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "roughness": {
+          "description": "PBR roughness, 0-1 (web rendering)",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "texture": {
+          "description": "Texture",
+          "$ref": "#/$defs/TEXTURE"
+        },
+        "texrepeat": {
+          "description": "Texture repeat count",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "default": [
+            1.0,
+            1.0
+          ]
+        },
+        "texuniform": {
+          "description": "Use world-size uniform texturing (true recommended for ground)",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "MESH": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Mesh name",
+          "type": "string"
+        },
+        "file": {
+          "description": "OBJ/STL path relative to the spec directory; alternative to generator",
+          "type": "string"
+        },
+        "generator": {
+          "description": "Use the framework's procedural mesh generator for shapes such as rounded boxes",
+          "enum": [
+            "rounded_box"
+          ]
+        },
+        "params": {
+          "description": "Parameters passed to generator; invalid names report the available options"
+        },
+        "scale": {
+          "description": "Scale",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "maxhullvert": {
+          "description": "Convex-hull vertex limit to reduce collision cost",
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 1000
+        },
+        "convex": {
+          "description": "Use a convex hull for collisions (MuJoCo default)",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FRICTION_PROFILE": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Friction model name",
+          "type": "string"
+        },
+        "sliding": {
+          "description": "Sliding friction coefficient",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "default": 1.0
+        },
+        "torsional": {
+          "description": "Torsional friction (requires condim>=4)",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "default": 0.005
+        },
+        "rolling": {
+          "description": "Rolling friction (requires condim>=6)",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "default": 0.0001
+        },
+        "condim": {
+          "description": "Suggested contact dimension",
+          "type": "integer",
+          "default": 3,
+          "enum": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "note": {
+          "description": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "DEFAULTS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "condim": {
+          "description": "Default contact dimension",
+          "type": "integer",
+          "default": 3,
+          "enum": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "friction": {
+          "description": "Default friction model",
+          "anyOf": [
+            {
+              "type": "string",
+              "examples": [
+                "asphalt",
+                "cardboard",
+                "carpet",
+                "concrete",
+                "frictionless",
+                "glass",
+                "grass",
+                "gravel",
+                "greased_metal",
+                "grippy_rubber",
+                "ice",
+                "plastic",
+                "polished_floor",
+                "rubber",
+                "sand",
+                "steel_on_steel",
+                "wood"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          ],
+          "default": "concrete"
+        },
+        "contact": {
+          "description": "Default contact stiffness",
+          "type": "string",
+          "examples": [
+            "bouncy",
+            "default",
+            "rigid",
+            "soft",
+            "squishy"
+          ],
+          "default": "default"
+        },
+        "margin": {
+          "description": "Contact detection margin (m)",
+          "type": "number",
+          "default": 0.0
+        },
+        "gap": {
+          "description": "Force-free gap inside the contact margin (m). MuJoCo 3.x tests show no effect on resting height; do not use it to cancel margin; set margin to 0 for ground contact",
+          "type": "number",
+          "default": 0.0
+        },
+        "density": {
+          "description": "Density when mass is unspecified (kg/m^3)",
+          "type": "number",
+          "default": 1000.0
+        },
+        "solmix": {
+          "description": "Solver mixing weight",
+          "type": "number",
+          "default": 1.0
+        }
+      }
+    },
+    "JOINT": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "Joint type",
+          "enum": [
+            "free",
+            "hinge",
+            "slide",
+            "ball"
+          ],
+          "default": "hinge"
+        },
+        "name": {
+          "description": "Joint name",
+          "type": "string"
+        },
+        "axis": {
+          "description": "Rotation or sliding axis",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        "pos": {
+          "description": "Joint origin relative to body",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "range": {
+          "description": "Motion range (deg or m)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "damping": {
+          "description": "Damping",
+          "type": "number",
+          "default": 0.0
+        },
+        "stiffness": {
+          "description": "Stiffness restoring toward springref",
+          "type": "number",
+          "default": 0.0
+        },
+        "armature": {
+          "description": "Added armature inertia, which can improve stability",
+          "type": "number",
+          "default": 0.0
+        },
+        "frictionloss": {
+          "description": "Joint dry friction",
+          "type": "number",
+          "default": 0.0
+        },
+        "limited": {
+          "description": "Whether limited; inferred from range by default",
+          "type": "boolean"
+        }
+      }
+    },
+    "OBJECT": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Object name (generated when omitted)",
+          "type": "string"
+        },
+        "shape": {
+          "description": "Geometry shape",
+          "enum": [
+            "box",
+            "sphere",
+            "capsule",
+            "cylinder",
+            "ellipsoid",
+            "mesh",
+            "plane",
+            "none"
+          ],
+          "default": "box"
+        },
+        "size": {
+          "description": "Sizes: box=[hx,hy,hz] sphere=[r] capsule/cylinder=[r,half-length] ellipsoid=[rx,ry,rz]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "pos": {
+          "description": "Position (m)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "euler": {
+          "description": "Euler angles (deg, XYZ)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "quat": {
+          "description": "Quaternion [w,x,y,z]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "axisangle": {
+          "description": "[ax,ay,az,angle(deg)]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "fromto": {
+          "description": "Endpoints for capsule/cylinder/box (alternative to pos+size)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "kind": {
+          "description": "dynamic=free motion, static=fixed to world, articulated=jointed",
+          "enum": [
+            "dynamic",
+            "static",
+            "articulated"
+          ],
+          "default": "dynamic"
+        },
+        "mass": {
+          "description": "Mass (kg), alternative to density",
+          "type": "number",
+          "minimum": 1e-06
+        },
+        "density": {
+          "description": "Density (kg/m^3)",
+          "type": "number",
+          "minimum": 1e-06
+        },
+        "material": {
+          "description": "Material name",
+          "type": "string",
+          "examples": [
+            "aluminium",
+            "asphalt",
+            "brick",
+            "cardboard",
+            "checker_light",
+            "concrete",
+            "foam",
+            "glass",
+            "grass",
+            "grid",
+            "mars_soil",
+            "metal",
+            "plastic_blue",
+            "plastic_green",
+            "plastic_red",
+            "plastic_white",
+            "plastic_yellow",
+            "rubber",
+            "safety_orange",
+            "sand",
+            "snow",
+            "steel_dark",
+            "target_marker",
+            "wall_paint",
+            "wood",
+            "wood_dark"
+          ]
+        },
+        "rgba": {
+          "description": "Direct color override of material color",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "mesh": {
+          "description": "Mesh name when shape=mesh",
+          "type": "string"
+        },
+        "friction": {
+          "description": "Friction model name or three values",
+          "anyOf": [
+            {
+              "type": "string",
+              "examples": [
+                "asphalt",
+                "cardboard",
+                "carpet",
+                "concrete",
+                "frictionless",
+                "glass",
+                "grass",
+                "gravel",
+                "greased_metal",
+                "grippy_rubber",
+                "ice",
+                "plastic",
+                "polished_floor",
+                "rubber",
+                "sand",
+                "steel_on_steel",
+                "wood"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          ]
+        },
+        "condim": {
+          "description": "Contact dimension 1/3/4/6",
+          "type": "integer",
+          "enum": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "contact": {
+          "description": "Contact stiffness preset",
+          "type": "string",
+          "examples": [
+            "bouncy",
+            "default",
+            "rigid",
+            "soft",
+            "squishy"
+          ]
+        },
+        "solref": {
+          "description": "Specify [time constant, damping ratio] directly",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "solimp": {
+          "description": "Specify solimp directly",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "margin": {
+          "description": "Contact margin (m)",
+          "type": "number"
+        },
+        "priority": {
+          "description": "Contact parameter priority; higher wins",
+          "type": "integer"
+        },
+        "collision": {
+          "description": "false means visual only, with no collision",
+          "type": "boolean",
+          "default": true
+        },
+        "contype": {
+          "description": "Collision type bit mask",
+          "type": "integer"
+        },
+        "conaffinity": {
+          "description": "Collision affinity bit mask",
+          "type": "integer"
+        },
+        "group": {
+          "description": "Visibility group 0-5, hideable in the viewer",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "default": 0
+        },
+        "joint": {
+          "description": "Joint when kind=articulated",
+          "$ref": "#/$defs/JOINT"
+        },
+        "joints": {
+          "description": "Multi-degree-of-freedom joint chain",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JOINT"
+          }
+        },
+        "children": {
+          "description": "Child objects forming a compound body or chain",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OBJECT"
+          }
+        },
+        "repeat": {
+          "description": "Array repetition",
+          "$ref": "#/$defs/REPEAT"
+        },
+        "tags": {
+          "description": "Tags for viewer or script filtering",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "REPEAT": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "description": "Copy count on each axis [nx,ny,nz]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "default": [
+            1,
+            1,
+            1
+          ]
+        },
+        "spacing": {
+          "description": "Spacing (m)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "jitter": {
+          "description": "Random position jitter (m)",
+          "type": "number",
+          "default": 0.0
+        },
+        "seed": {
+          "description": "Jitter seed",
+          "type": "integer",
+          "default": 0
+        }
+      }
+    },
+    "ASSEMBLY": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "Assembly type",
+          "enum": [
+            "room",
+            "walls",
+            "table",
+            "shelf",
+            "stairs",
+            "ramp",
+            "platform",
+            "pillars",
+            "fence",
+            "bin",
+            "conveyor",
+            "scatter",
+            "grid_of_boxes",
+            "obstacle_course",
+            "target_pad"
+          ]
+        },
+        "name": {
+          "description": "Name prefix",
+          "type": "string"
+        },
+        "pos": {
+          "description": "Placement position",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "euler": {
+          "description": "Orientation (deg)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "size": {
+          "description": "Primary size, interpreted by type (see mjscene list assemblies)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "material": {
+          "description": "Primary material",
+          "type": "string",
+          "examples": [
+            "aluminium",
+            "asphalt",
+            "brick",
+            "cardboard",
+            "checker_light",
+            "concrete",
+            "foam",
+            "glass",
+            "grass",
+            "grid",
+            "mars_soil",
+            "metal",
+            "plastic_blue",
+            "plastic_green",
+            "plastic_red",
+            "plastic_white",
+            "plastic_yellow",
+            "rubber",
+            "safety_orange",
+            "sand",
+            "snow",
+            "steel_dark",
+            "target_marker",
+            "wall_paint",
+            "wood",
+            "wood_dark"
+          ]
+        },
+        "material_2": {
+          "description": "Secondary material, such as tabletop or stair tread",
+          "type": "string",
+          "examples": [
+            "aluminium",
+            "asphalt",
+            "brick",
+            "cardboard",
+            "checker_light",
+            "concrete",
+            "foam",
+            "glass",
+            "grass",
+            "grid",
+            "mars_soil",
+            "metal",
+            "plastic_blue",
+            "plastic_green",
+            "plastic_red",
+            "plastic_white",
+            "plastic_yellow",
+            "rubber",
+            "safety_orange",
+            "sand",
+            "snow",
+            "steel_dark",
+            "target_marker",
+            "wall_paint",
+            "wood",
+            "wood_dark"
+          ]
+        },
+        "friction": {
+          "description": "Friction model",
+          "anyOf": [
+            {
+              "type": "string",
+              "examples": [
+                "asphalt",
+                "cardboard",
+                "carpet",
+                "concrete",
+                "frictionless",
+                "glass",
+                "grass",
+                "gravel",
+                "greased_metal",
+                "grippy_rubber",
+                "ice",
+                "plastic",
+                "polished_floor",
+                "rubber",
+                "sand",
+                "steel_on_steel",
+                "wood"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          ]
+        },
+        "thickness": {
+          "description": "Wall or board thickness (m)",
+          "type": "number"
+        },
+        "height": {
+          "description": "Height (m)",
+          "type": "number"
+        },
+        "width": {
+          "description": "Width (m)",
+          "type": "number"
+        },
+        "levels": {
+          "description": "Number of shelf levels",
+          "type": "integer"
+        },
+        "steps": {
+          "description": "Number of stairs",
+          "type": "integer"
+        },
+        "rise": {
+          "description": "Rise per step (m)",
+          "type": "number"
+        },
+        "run": {
+          "description": "Run per step (m)",
+          "type": "number"
+        },
+        "angle": {
+          "description": "Slope angle (deg)",
+          "type": "number"
+        },
+        "count": {
+          "description": "Count of columns or scattered objects",
+          "type": "integer"
+        },
+        "region": {
+          "description": "Scatter region [x_min,y_min,x_max,y_max]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "shapes": {
+          "description": "Candidate scattered-object shapes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "size_range": {
+          "description": "Scattered-object size range [min..., max...]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "mass_range": {
+          "description": "Scattered-object mass range (kg)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "materials": {
+          "description": "Candidate scattered-object materials",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "seed": {
+          "description": "Random seed",
+          "type": "integer"
+        },
+        "z": {
+          "description": "Scatter height or elevation (m)",
+          "type": "number"
+        },
+        "spacing": {
+          "description": "Spacing",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "openings": {
+          "description": "Room opening directions, such as ['north','east']",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ceiling": {
+          "description": "Whether the room has a ceiling",
+          "type": "boolean"
+        },
+        "dynamic": {
+          "description": "Whether the assembly can move (static by default)",
+          "type": "boolean"
+        },
+        "condim": {
+          "description": "Contact dimension 1/3/4/6 (default 4 for scatter and grid_of_boxes)",
+          "type": "integer",
+          "enum": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "contact": {
+          "description": "Contact stiffness preset",
+          "type": "string",
+          "examples": [
+            "bouncy",
+            "default",
+            "rigid",
+            "soft",
+            "squishy"
+          ]
+        },
+        "group": {
+          "description": "Visibility group",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "tags": {
+          "description": "Tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "CONTACT_PAIR": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "geom1": {
+          "description": "Geom name (usually '<object_name>_geom')",
+          "type": "string"
+        },
+        "geom2": {
+          "description": "Other geom name",
+          "type": "string"
+        },
+        "friction": {
+          "description": "Friction for this contact pair (name or five values)",
+          "anyOf": [
+            {
+              "type": "string",
+              "examples": [
+                "asphalt",
+                "cardboard",
+                "carpet",
+                "concrete",
+                "frictionless",
+                "glass",
+                "grass",
+                "gravel",
+                "greased_metal",
+                "grippy_rubber",
+                "ice",
+                "plastic",
+                "polished_floor",
+                "rubber",
+                "sand",
+                "steel_on_steel",
+                "wood"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          ]
+        },
+        "condim": {
+          "description": "Contact dimension",
+          "type": "integer",
+          "enum": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "solref": {
+          "description": "[time constant, damping ratio]",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "solimp": {
+          "description": "solimp",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "margin": {
+          "description": "Contact margin (m)",
+          "type": "number"
+        },
+        "gap": {
+          "description": "Force-free gap (m); tests show no effect on resting height; see DEFAULTS.gap",
+          "type": "number"
+        }
+      },
+      "required": [
+        "geom1",
+        "geom2"
+      ]
+    },
+    "CONTACT_EXCLUDE": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "body1": {
+          "description": "Body name 1",
+          "type": "string"
+        },
+        "body2": {
+          "description": "Body name 2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "body1",
+        "body2"
+      ]
+    },
+    "CONTACTS": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pairs": {
+          "description": "Explicit contact pairs; their parameters override geom settings",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CONTACT_PAIR"
+          }
+        },
+        "excludes": {
+          "description": "Disable contact between these two bodies",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CONTACT_EXCLUDE"
+          }
+        }
+      }
+    },
+    "ROBOT": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Name prefix",
+          "type": "string"
+        },
+        "file": {
+          "description": "Robot MJCF path relative to the spec directory",
+          "type": "string"
+        },
+        "pos": {
+          "description": "Placement position",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "euler": {
+          "description": "Orientation (deg)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "quat": {
+          "description": "Orientation quaternion",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "freejoint": {
+          "description": "Add freejoint to root for a mobile robot",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "file"
+      ]
+    },
+    "CAMERA": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Camera name",
+          "type": "string"
+        },
+        "pos": {
+          "description": "Position (m)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "target": {
+          "description": "Look-at target; orientation computed automatically",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "euler": {
+          "description": "Specify Euler angles directly (deg)",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "fovy": {
+          "description": "Vertical field of view (deg)",
+          "type": "number",
+          "minimum": 1,
+          "maximum": 170,
+          "default": 50.0
+        },
+        "mode": {
+          "description": "fixed / track / trackcom / targetbody",
+          "enum": [
+            "fixed",
+            "track",
+            "trackcom",
+            "targetbody"
+          ],
+          "default": "fixed"
+        },
+        "track": {
+          "description": "Tracked object name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "pos"
+      ]
+    },
+    "SPAWN": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "description": "Robot spawn point; z is the **ground height**. Only the host knows the robot's base height and must add it for the selected robot",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "yaw": {
+          "description": "Initial orientation (deg); 0 faces +X",
+          "type": "number",
+          "default": 0.0
+        },
+        "clearance": {
+          "description": "Required clear radius around spawn (m), for downstream checks",
+          "type": "number",
+          "minimum": 0.0,
+          "default": 0.4
+        },
+        "bounds": {
+          "description": "Activity bounds [x_min,y_min,z_min,x_max,y_max,z_max]; downstream consumers may build invisible walls or choose their own defaults",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        }
+      }
+    },
+    "VIEWER": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "camera_pos": {
+          "description": "Initial free-camera position",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "camera_target": {
+          "description": "Initial view target",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "fovy": {
+          "description": "Field of view",
+          "type": "number",
+          "default": 50.0
+        },
+        "realtime": {
+          "description": "Initial playback speed multiplier",
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 8.0,
+          "default": 1.0
+        },
+        "paused": {
+          "description": "Pause after loading",
+          "type": "boolean",
+          "default": false
+        },
+        "show_contacts": {
+          "description": "Show contact points",
+          "type": "boolean",
+          "default": false
+        },
+        "shadows": {
+          "description": "Override shadow switch",
+          "type": "boolean"
+        },
+        "exposure": {
+          "description": "Exposure",
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 4.0,
+          "default": 1.05
+        }
+      }
+    }
+  }
+}

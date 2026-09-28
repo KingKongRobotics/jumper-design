@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="park-pump-track">
+  <compiler angle="degree" />
+  <asset>
+    <hfield name="terrain_hfield" file="assets/terrain.png" size="5.000000 4.000000 0.144706 0.080000" />
+    <mesh name="grass_surface" file="assets/grass_surface.obj" />
+    <mesh name="asphalt_surface" file="assets/asphalt_surface.obj" />
+    <mesh name="edge_inner" file="assets/edge_inner.obj" />
+    <mesh name="edge_outer" file="assets/edge_outer.obj" />
+    <mesh name="lap_center" file="assets/lap_center.obj" />
+    <mesh name="crest_marks" file="assets/crest_marks.obj" />
+    <material name="appearance_grass" rgba="0.470588 0.643137 0.364706 1" roughness="0.88" metallic="0" />
+    <material name="appearance_grass_light" rgba="0.552941 0.713725 0.427451 1" roughness="0.88" metallic="0" />
+    <material name="appearance_asphalt" rgba="0.203922 0.294118 0.313725 1" roughness="0.79" metallic="0" />
+    <material name="appearance_asphalt_warm" rgba="0.274510 0.388235 0.407843 1" roughness="0.79" metallic="0" />
+    <material name="appearance_edge" rgba="0.949020 0.843137 0.552941 1" roughness="0.88" metallic="0" />
+    <material name="appearance_center" rgba="0.850980 0.905882 0.862745 1" roughness="0.88" metallic="0" />
+    <material name="appearance_plaza" rgba="0.819608 0.741176 0.572549 1" roughness="0.88" metallic="0" />
+    <material name="appearance_wood" rgba="0.650980 0.431373 0.262745 1" roughness="0.88" metallic="0" />
+    <material name="appearance_wood_dark" rgba="0.388235 0.290196 0.223529 1" roughness="0.88" metallic="0" />
+    <material name="appearance_metal" rgba="0.325490 0.423529 0.439216 1" roughness="0.79" metallic="0" />
+    <material name="appearance_trunk" rgba="0.470588 0.376471 0.282353 1" roughness="0.88" metallic="0" />
+    <material name="appearance_canopy" rgba="0.294118 0.513725 0.329412 1" roughness="0.88" metallic="0" />
+    <material name="appearance_canopy_light" rgba="0.454902 0.650980 0.352941 1" roughness="0.88" metallic="0" />
+    <material name="appearance_shrub" rgba="0.400000 0.580392 0.309804 1" roughness="0.88" metallic="0" />
+    <material name="appearance_flower" rgba="0.913725 0.658824 0.415686 1" roughness="0.88" metallic="0" />
+    <material name="appearance_flower_alt" rgba="0.717647 0.654902 0.843137 1" roughness="0.88" metallic="0" />
+    <material name="appearance_sign" rgba="0.964706 0.929412 0.823529 1" roughness="0.88" metallic="0" />
+  </asset>
+  <worldbody>
+    <geom name="ground" type="hfield" hfield="terrain_hfield" pos="0.000000 0.000000 0.017647" rgba="0 0 0 0" group="3" friction="1.1 0.005 0.0001" margin="0.001" />
+    <light name="sun" pos="0 0 8" dir="0 0 -1" directional="true" diffuse="0.22 0.22 0.22" />
+    <geom name="grass_surface" type="mesh" pos="0.000000 0.000000 0.000000" material="appearance_grass" contype="0" conaffinity="0" mass="0" mesh="grass_surface" />
+    <geom name="asphalt_surface" type="mesh" pos="0.000000 0.000000 0.000000" material="appearance_asphalt" contype="0" conaffinity="0" mass="0" mesh="asphalt_surface" />
+    <geom name="edge_inner" type="mesh" pos="0.000000 0.000000 0.000000" material="appearance_edge" contype="0" conaffinity="0" mass="0" mesh="edge_inner" />
+    <geom name="edge_outer" type="mesh" pos="0.000000 0.000000 0.000000" material="appearance_edge" contype="0" conaffinity="0" mass="0" mesh="edge_outer" />
+    <geom name="lap_center" type="mesh" pos="0.000000 0.000000 0.000000" material="appearance_center" contype="0" conaffinity="0" mass="0" mesh="lap_center" />
+    <geom name="crest_marks" type="mesh" pos="0.000000 0.000000 0.000000" material="appearance_asphalt_warm" contype="0" conaffinity="0" mass="0" mesh="crest_marks" />
+    <geom name="start_mark" type="box" pos="-1.810000 -1.450000 0.058000" material="appearance_center" size="0.018000 0.447200 0.001000" contype="0" conaffinity="0" mass="0" />
+    <site name="start" pos="-1.570000 -1.450000 0.052000" size="0.12 0.12 0.005" type="box" rgba="0 0 0 0" />
+    <site name="roller_1_crest" pos="0.100000 -1.450000 0.157000" size="0.04" rgba="0 0 0 0" />
+    <site name="roller_2_crest" pos="1.350000 -1.450000 0.137000" size="0.04" rgba="0 0 0 0" />
+    <site name="roller_3_crest" pos="0.600000 1.450000 0.162000" size="0.04" rgba="0 0 0 0" />
+    <site name="roller_4_crest" pos="-0.950000 1.450000 0.142000" size="0.04" rgba="0 0 0 0" />
+    <geom name="tree_1_trunk" type="cylinder" pos="-4.450000 -2.900000 0.328000" material="appearance_trunk" size="0.065000 0.310000" />
+    <geom name="tree_1_crown" type="sphere" pos="-4.450000 -2.900000 0.808000" material="appearance_canopy" size="0.310000 0.310000 0.360000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_1_highlight" type="sphere" pos="-4.540000 -2.940000 0.928000" material="appearance_canopy_light" size="0.220000 0.220000 0.230000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_2_trunk" type="cylinder" pos="4.450000 -2.900000 0.328000" material="appearance_trunk" size="0.065000 0.310000" />
+    <geom name="tree_2_crown" type="sphere" pos="4.450000 -2.900000 0.808000" material="appearance_canopy" size="0.310000 0.310000 0.360000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_2_highlight" type="sphere" pos="4.360000 -2.940000 0.928000" material="appearance_canopy_light" size="0.220000 0.220000 0.230000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_3_trunk" type="cylinder" pos="-4.450000 2.900000 0.328000" material="appearance_trunk" size="0.065000 0.310000" />
+    <geom name="tree_3_crown" type="sphere" pos="-4.450000 2.900000 0.808000" material="appearance_canopy" size="0.310000 0.310000 0.360000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_3_highlight" type="sphere" pos="-4.540000 2.860000 0.928000" material="appearance_canopy_light" size="0.220000 0.220000 0.230000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_4_trunk" type="cylinder" pos="4.450000 2.900000 0.328000" material="appearance_trunk" size="0.065000 0.310000" />
+    <geom name="tree_4_crown" type="sphere" pos="4.450000 2.900000 0.808000" material="appearance_canopy" size="0.310000 0.310000 0.360000" contype="0" conaffinity="0" mass="0" />
+    <geom name="tree_4_highlight" type="sphere" pos="4.360000 2.860000 0.928000" material="appearance_canopy_light" size="0.220000 0.220000 0.230000" contype="0" conaffinity="0" mass="0" />
+    <geom name="bench_1_seat" type="box" pos="-2.150000 -3.220000 0.258000" material="appearance_wood" size="0.480000 0.150000 0.035000" />
+    <geom name="bench_1_back" type="box" pos="-2.150000 -3.080000 0.448000" material="appearance_wood_dark" size="0.480000 0.028000 0.190000" />
+    <geom name="bench_1_left_leg" type="box" pos="-2.520000 -3.220000 0.138000" material="appearance_metal" size="0.025000 0.110000 0.120000" />
+    <geom name="bench_1_right_leg" type="box" pos="-1.780000 -3.220000 0.138000" material="appearance_metal" size="0.025000 0.110000 0.120000" />
+    <geom name="bench_2_seat" type="box" pos="2.150000 3.220000 0.258000" material="appearance_wood" size="0.480000 0.150000 0.035000" />
+    <geom name="bench_2_back" type="box" pos="2.150000 3.360000 0.448000" material="appearance_wood_dark" size="0.480000 0.028000 0.190000" />
+    <geom name="bench_2_left_leg" type="box" pos="1.780000 3.220000 0.138000" material="appearance_metal" size="0.025000 0.110000 0.120000" />
+    <geom name="bench_2_right_leg" type="box" pos="2.520000 3.220000 0.138000" material="appearance_metal" size="0.025000 0.110000 0.120000" />
+    <geom name="island_shrub_1_1" type="sphere" pos="-1.350000 -0.370000 0.131293" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_1_1" type="sphere" pos="-1.280000 -0.410000 0.231293" material="appearance_flower_alt" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_1_2" type="sphere" pos="-1.350000 0.370000 0.131293" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_1_2" type="sphere" pos="-1.280000 0.330000 0.231293" material="appearance_flower" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_2_1" type="sphere" pos="-0.670000 -0.370000 0.134329" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_2_1" type="sphere" pos="-0.600000 -0.410000 0.234329" material="appearance_flower" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_2_2" type="sphere" pos="-0.670000 0.370000 0.134329" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_2_2" type="sphere" pos="-0.600000 0.330000 0.234329" material="appearance_flower_alt" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_3_1" type="sphere" pos="0.000000 -0.370000 0.135835" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_3_1" type="sphere" pos="0.070000 -0.410000 0.235835" material="appearance_flower_alt" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_3_2" type="sphere" pos="0.000000 0.370000 0.135835" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_3_2" type="sphere" pos="0.070000 0.330000 0.235835" material="appearance_flower" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_4_1" type="sphere" pos="0.670000 -0.370000 0.134329" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_4_1" type="sphere" pos="0.740000 -0.410000 0.234329" material="appearance_flower" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_4_2" type="sphere" pos="0.670000 0.370000 0.134329" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_4_2" type="sphere" pos="0.740000 0.330000 0.234329" material="appearance_flower_alt" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_5_1" type="sphere" pos="1.350000 -0.370000 0.131293" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_5_1" type="sphere" pos="1.420000 -0.410000 0.231293" material="appearance_flower_alt" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_shrub_5_2" type="sphere" pos="1.350000 0.370000 0.131293" material="appearance_shrub" size="0.220000 0.190000 0.120000" contype="0" conaffinity="0" mass="0" />
+    <geom name="island_flower_5_2" type="sphere" pos="1.420000 0.330000 0.231293" material="appearance_flower" size="0.065000 0.065000 0.045000" contype="0" conaffinity="0" mass="0" />
+  </worldbody>
+</mujoco>

@@ -1,0 +1,9 @@
+# Park Pump Track
+
+A compact 10 × 8 m landscaped park surrounds a closed 18.111 m asphalt lap. The road is 1.04 m wide, leaving 0.655 m of nominal lateral clearance beyond Jumper's approximately 0.385 m static width. Four rounded rollers rise 0.085–0.11 m above their local baseline on the straight sections. Outer turn banking rises by at most 0.078 m across the lane. Elevation blends continuously into the lawn; edge and center markings are visual paint without collision lips.
+
+The starting station is `start` at `(-1.57, -1.45)` on the level southern tangent, heading east (`yaw=0` degrees). Pass `roller_1_crest` and `roller_2_crest`, round the eastern banked turn, pass `roller_3_crest` and `roller_4_crest` on the northern return, then round the western turn to complete a lap. Waypoint order, timing, laps, and controller behavior belong to the app. The map does not establish a successful trained gait.
+
+The continuous PNG heightfield `ground` is the only driveable surface collider. Open triangulated lawn, road, and paint meshes are display-only because MuJoCo collision meshes would be convexified. Tree trunks and park benches outside the lane have solid collision. Shrub foliage and flowers are visual only. The default whole-robot Jumper and its physics are attached by the `.map/2` exporter, not authored into this scene XML.
+
+Generator: `python scripts/build_park_pump_track.py`. Design frame: meters, right-handed Z-up, road footprint approximately X ±4.22 and Y ±1.97, full terrain X ±5 and Y ±4. The park has about 0.78 m outside the turn shoulders. A suggested environment-only thumbnail camera is at `(7.8, -10.2, 11.5)` looking at `(0, 0, 0.05)`, with an orthographic width of 12.5 m and no distance fog. Render and inspect it through the Web importer; native MuJoCo display is a separate physics view.

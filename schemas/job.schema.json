@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:shellflow:job:2",
+  "title": "Shellflow task and evidence ledger; not a digital-acceptance certificate",
+  "type": "object",
+  "required": ["schema_version", "id", "brief", "platform", "design", "printing", "deliverables", "simulation", "sources", "parameters", "stages", "physical_print_tested", "physical_fit_tested"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"},
+    "brief": {"type": "string"},
+    "created_at": {"type": "string"},
+    "units": {"const": "millimeter"},
+    "platform": {
+      "type": "object",
+      "required": ["id", "manifest_sha256"],
+      "properties": {"id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"}, "manifest_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}},
+      "additionalProperties": true
+    },
+    "design": {
+      "type": "object",
+      "required": ["front_opening"],
+      "properties": {
+        "front_opening": {"enum": ["close", "preserve", "unknown"]},
+        "palette": {"type": "array"},
+        "nominal_wall_mm": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "minimum_wall_mm": {"type": ["number", "null"], "exclusiveMinimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "printing": {"type": "object", "properties": {"preset_is_reference_only": {"type": "boolean"}}, "additionalProperties": true},
+    "deliverables": {"type": "object", "required": ["printing", "simulation"], "properties": {"printing": {"const": true}, "simulation": {"const": true}}, "additionalProperties": false},
+    "simulation": {
+      "type": "object", "required": ["robot_platform", "collision_policy", "inertia_policy", "physical_dynamics_validated"],
+      "properties": {
+        "robot_platform": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"},
+        "collision_policy": {"const": "baseline_preserved"}, "inertia_policy": {"const": "baseline_preserved"},
+        "physical_dynamics_validated": {"const": false}
+      }, "additionalProperties": true
+    },
+    "sources": {"type": "array", "items": {"$ref": "#/$defs/file"}},
+    "parameters": {"type": "object"},
+    "stages": {
+      "type": "object",
+      "required": ["requirements", "concept", "multiview", "appearance", "engineering", "validation", "ams", "slicing", "simulation", "delivery"],
+      "properties": {
+        "requirements": {"$ref": "#/$defs/stage"}, "concept": {"$ref": "#/$defs/stage"},
+        "multiview": {"$ref": "#/$defs/stage"}, "appearance": {"$ref": "#/$defs/stage"},
+        "engineering": {"$ref": "#/$defs/stage"}, "validation": {"$ref": "#/$defs/stage"},
+        "ams": {"$ref": "#/$defs/stage"}, "slicing": {"$ref": "#/$defs/stage"}, "simulation": {"$ref": "#/$defs/stage"}, "delivery": {"$ref": "#/$defs/stage"}
+      },
+      "additionalProperties": false
+    },
+    "physical_print_tested": {"const": false},
+    "physical_fit_tested": {"const": false},
+    "internal_component_collision_tested": {"const": false},
+    "full_motion_collision_tested": {"const": false}
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "file": {
+      "type": "object", "required": ["role", "path", "sha256", "bytes"],
+      "properties": {"role": {"type": "string"}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}, "bytes": {"type": "integer", "minimum": 0}},
+      "additionalProperties": false
+    },
+    "stage": {
+      "type": "object", "required": ["status", "verification", "artifacts"],
+      "properties": {
+        "status": {"enum": ["pending", "recorded"]}, "verification": {"const": "pending"},
+        "artifacts": {"type": "array", "items": {"$ref": "#/$defs/file"}},
+        "recorded_at": {"type": "string"}, "engine_version": {"type": "string"},
+        "engine_sha256": {"$ref": "#/$defs/sha256"}, "input_fingerprint": {"$ref": "#/$defs/sha256"}
+      },
+      "allOf": [{"if": {"properties": {"status": {"const": "recorded"}}}, "then": {"required": ["recorded_at", "engine_version", "engine_sha256", "input_fingerprint"], "properties": {"artifacts": {"minItems": 1}}}}],
+      "additionalProperties": false
+    }
+  }
+}

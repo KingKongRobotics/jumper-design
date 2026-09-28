@@ -1,0 +1,67 @@
+{
+  "name": "obstacle-course",
+  "title": "Steps and Detours",
+  "description": "A portable rigid challenge environment. Experiment settings and the APP implement scoring and robot control.",
+  "spawn": {
+    "position": [
+      -1.5,
+      0,
+      0
+    ],
+    "yaw": 0,
+    "clearance": 0.6
+  },
+  "objects": [
+    {
+      "name": "step_low",
+      "shape": "box",
+      "size": [
+        0.25,
+        0.6,
+        0.025
+      ],
+      "pos": [
+        0,
+        0,
+        0.025
+      ],
+      "kind": "static",
+      "material": "plastic_red",
+      "friction": "concrete"
+    },
+    {
+      "name": "step_high",
+      "shape": "box",
+      "size": [
+        0.25,
+        0.6,
+        0.05
+      ],
+      "pos": [
+        0.5,
+        0,
+        0.05
+      ],
+      "kind": "static",
+      "material": "plastic_red",
+      "friction": "concrete"
+    },
+    {
+      "name": "barrier",
+      "shape": "box",
+      "size": [
+        0.1,
+        0.4,
+        0.2
+      ],
+      "pos": [
+        1.3,
+        0,
+        0.2
+      ],
+      "kind": "static",
+      "material": "plastic_red",
+      "friction": "concrete"
+    }
+  ]
+}

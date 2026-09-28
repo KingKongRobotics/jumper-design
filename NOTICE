@@ -1,0 +1,8 @@
+Design Workflow
+Copyright 2026 KingKongRobotics and contributors.
+
+Licensed under the Apache License, Version 2.0.
+
+The scene compiler includes code imported from the scene-design project.
+See docs/scene-upstream.md for source revision and provenance.
+Third-party components retain their respective notices and license terms.

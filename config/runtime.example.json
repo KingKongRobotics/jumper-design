@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "python": null,
+  "blender": null,
+  "bambu_studio": null,
+  "notes": "Null means auto-detect. Copy this example to .local/runtime.json and set paths for this computer. Do not add credentials."
+}

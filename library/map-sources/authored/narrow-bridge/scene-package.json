@@ -1,0 +1,67 @@
+{
+  "schema": "kk-scene-package/1",
+  "id": "narrow-bridge",
+  "title": "Narrow Bridge",
+  "version": "1.1.2",
+  "use": "watching",
+  "exportedBy": {
+    "repo": "robot-shell-workflow",
+    "tool": "scripts/build_authored_challenges.py"
+  },
+  "source": {
+    "repository": "robot-shell-workflow",
+    "authoredGround": true
+  },
+  "requiredCapabilities": [
+    "rigid"
+  ],
+  "world": {
+    "file": "scene.xml",
+    "assetDir": "",
+    "terrainType": "none",
+    "ground": {
+      "geom": "ground"
+    },
+    "counts": {
+      "geoms": 37,
+      "bodies": 0,
+      "lights": 1,
+      "textures": 0,
+      "materials": 37,
+      "meshes": 0
+    },
+    "attach": {
+      "prefix": "scn_"
+    }
+  },
+  "props": [],
+  "flex": [],
+  "lights": [
+    {
+      "name": "sun"
+    }
+  ],
+  "cameras": [],
+  "spawn": {
+    "position": [
+      -1.95,
+      0,
+      0
+    ],
+    "yaw": 0
+  },
+  "files": {
+    "README.md": {
+      "bytes": 500,
+      "sha256": "1abd6421ca8bbf01a8719cfdd3bcfebf6e1c543e089c86ba270a5f95539896a0"
+    },
+    "scene.xml": {
+      "bytes": 11141,
+      "sha256": "051aa839262df00b47a1cf5f60159130e5b796d522e0ca6e896198beb5398983"
+    },
+    "visual-appearance.json": {
+      "bytes": 10208,
+      "sha256": "511371d45a6a95e8e3631ae9702ef4f1a9786b4c0762095017fc7600ec86aeb4"
+    }
+  }
+}

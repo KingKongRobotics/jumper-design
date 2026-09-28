@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kingkong.tech/schemas/map-package.schema.json",
+  "title": "kk-scene-package/1 manifest in a .map archive",
+  "description": "Structural contract only. The loader additionally checks file hashes, MJCF, resource paths, and consumer capabilities.",
+  "type": "object",
+  "required": ["schema", "id", "title", "use", "world", "props", "files"],
+  "properties": {
+    "schema": {"const": "kk-scene-package/1"},
+    "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"},
+    "title": {"type": "string"},
+    "description": {"type": "string"},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "use": {"enum": ["watching", "both"]},
+    "exportedBy": {"type": "object"},
+    "world": {
+      "type": "object",
+      "required": ["file", "attach"],
+      "properties": {
+        "file": {"type": "string"},
+        "assetDir": {"type": "string"},
+        "terrainType": {"type": "string"},
+        "ground": {"type": "object"},
+        "counts": {"type": "object"},
+        "decorativeGeoms": {"type": "array"},
+        "collidingGeoms": {"type": "array"},
+        "attach": {
+          "type": "object",
+          "required": ["prefix"],
+          "properties": {"prefix": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"}}
+        }
+      }
+    },
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "body": {"type": "string"},
+          "freeJoint": {"type": "boolean"},
+          "freeJointName": {"type": "string"},
+          "geoms": {"type": "array", "items": {"type": "string"}},
+          "position": {"$ref": "#/$defs/vec3"},
+          "file": {"type": "string"},
+          "initPositionRelativeToRobot": {"$ref": "#/$defs/vec3"}
+        }
+      }
+    },
+    "spawn": {
+      "type": "object",
+      "required": ["position", "yaw"],
+      "properties": {
+        "position": {"$ref": "#/$defs/vec3"},
+        "yaw": {"type": "number", "description": "Degrees; zero points toward +X."},
+        "clearance": {"type": "number", "minimum": 0},
+        "bounds": {"type": "array", "items": {"type": "number"}, "minItems": 6, "maxItems": 6},
+        "site": {"type": "string"}
+      }
+    },
+    "requiredCapabilities": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "flex": {"type": "array"},
+    "lights": {"type": "array"},
+    "cameras": {"type": "array"},
+    "physics": {"type": "object"},
+    "rules": {"type": "object"},
+    "files": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["bytes", "sha256"],
+        "properties": {
+          "bytes": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "vec3": {"type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3}
+  }
+}

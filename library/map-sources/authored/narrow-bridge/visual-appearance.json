@@ -1,0 +1,429 @@
+{
+  "schema": "kk-web-appearance/1",
+  "profile": "be-web/1",
+  "colorSpace": "srgb",
+  "materials": {
+    "appearance_ground": {
+      "color": "#3d4a47",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_basin": {
+      "color": "#215966",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_start_platform": {
+      "color": "#597a5e",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_start_paint": {
+      "color": "#e6bd36",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_exit_platform": {
+      "color": "#618766",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_exit_paint": {
+      "color": "#e6bd36",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_bridge_deck": {
+      "color": "#734721",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_0": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_1": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_2": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_3": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_4": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_5": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_6": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_7": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_8": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_9": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_10": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_11": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_12": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_13": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_14": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_15": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_16": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_17": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_18": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_19": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_20": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_21": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_22": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_23": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_24": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_25": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_26": {
+      "color": "#8f6330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_plank_27": {
+      "color": "#a36330",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_edge_-0.208": {
+      "color": "#f7c433",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    },
+    "appearance_edge_0.208": {
+      "color": "#f7c433",
+      "opacity": 1.0,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "emissive": "#000000",
+      "emissiveIntensity": 0.0,
+      "unlit": false,
+      "side": "front",
+      "flatShading": false
+    }
+  },
+  "lighting": {
+    "mode": "web-default",
+    "builtInScale": 1
+  },
+  "renderer": {
+    "toneMapping": "aces-filmic",
+    "exposure": 0.95,
+    "outputColorSpace": "srgb",
+    "background": "#eef1ed",
+    "fog": {
+      "near": 6,
+      "far": 16,
+      "color": "#eef1ed"
+    }
+  }
+}

@@ -1,0 +1,927 @@
+{
+  "alignment": {
+    "cad_mm_to_base_m": {
+      "formula": "p_base_m = rotation_matrix @ (p_engineering_mm * 0.001) + translation_m",
+      "rotation_matrix": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale": 0.001,
+      "translation_m": [
+        -0.014323685150259526,
+        -4.1195352903058564e-07,
+        -0.006820066495669156
+      ]
+    },
+    "cad_mm_to_parent_m": {
+      "formula": "p_upper_shell_m = rotation_matrix @ (p_engineering_mm * 0.001) + translation_m",
+      "rotation_matrix": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "scale": 0.001,
+      "translation_m": [
+        -0.007009982872697907,
+        -4.1195352903058564e-07,
+        -0.03832006649566816
+      ]
+    },
+    "legacy_profile_sha256": "caae615d09218f63de876f0cba5534f888069f77f7b72f8b73e5d0fc70d7d7be",
+    "legacy_seam_reference_sha256": "082d835dd7890db49c3c2ba82e431200660b630bd954efc4315cc4f71bc8353a",
+    "max_limit_m": 0.001,
+    "max_m": 8.436731717733294e-05,
+    "method": "source_stl_to_original_cad_seam_samples",
+    "p95_limit_m": 0.00025,
+    "p95_m": 7.274960706250929e-05,
+    "passed": true,
+    "sample_count": 553,
+    "scope": "finite display registration samples; no physical fit certification",
+    "source_mesh_sha256": "25cadf3b3a05f56de945468858315a867f4d3c9b5967911c9e395d81f3176fc9",
+    "source_upper_joint_origin_base_m": [
+      -0.00731370227756162,
+      0.0,
+      0.031499999999999
+    ]
+  },
+  "authored_inertia_policy": "preserved_full_tensor",
+  "baseline_mjcf_sha256": "36c0015b880926ea808e22181178e2fc21ab6da5b56ea6ec22896757d3492fe1",
+  "collision_geom_group": 3,
+  "derived_joint_order": [
+    "upper_shell_joint",
+    "display_module_joint",
+    "tof_sensor_joint",
+    "camera_joint",
+    "LF_J0_joint",
+    "LF_J1_joint",
+    "LF_J2_joint",
+    "LF_J3_joint",
+    "LF_palm_pad_f_joint",
+    "LF_palm_pad_b_joint",
+    "LF_J4_joint",
+    "LF_finger_tip_joint",
+    "LF_finger_grip_insert_joint",
+    "LF_palm_grip_insert_joint",
+    "RF_J0_joint",
+    "RF_J1_joint",
+    "RF_J2_joint",
+    "RF_J3_joint",
+    "RF_palm_pad_f_joint",
+    "RF_palm_pad_b_joint",
+    "RF_palm_grip_insert_joint",
+    "RF_J4_joint",
+    "RF_finger_grip_insert_joint",
+    "RF_finger_tip_joint",
+    "LM_J0_joint",
+    "LM_J1_joint",
+    "LM_J2_joint",
+    "LM_foot_tip_joint",
+    "RM_J0_joint",
+    "RM_J1_joint",
+    "RM_J2_joint",
+    "RM_foot_tip_joint",
+    "LR_J0_joint",
+    "LR_J1_joint",
+    "LR_J2_joint",
+    "LR_foot_tip_joint",
+    "RR_J0_joint",
+    "RR_J1_joint",
+    "RR_J2_joint",
+    "RR_foot_tip_joint"
+  ],
+  "display_group_scope": "classification only; collision contacts remain enabled",
+  "external_source_audit_sha256": "def18fb83efb7b65a186d0fb5e79d1b8af1ab401c7127b4c759da58beff26092",
+  "fixed_links_preserved": true,
+  "importer_code_sha256": "d2f30b3271619603e25e4920d71f0c028376ce84df53bda310d450dd163792b1",
+  "legacy_profile_sha256": "caae615d09218f63de876f0cba5534f888069f77f7b72f8b73e5d0fc70d7d7be",
+  "mechanical_interface_status": "original STEP identifier inherited; finite seam registration passed; six-hole surface fit and physical assembly unverified",
+  "native_actuator_count": 0,
+  "native_added_freejoint": "floating_base",
+  "native_collision_limit": "MuJoCo mesh contact uses convex hulls; source STL unchanged",
+  "native_joint_user_fields": [
+    "source_effort_Nm",
+    "source_velocity_rad_s"
+  ],
+  "physical_dynamics_validated": false,
+  "physical_fit_tested": false,
+  "preview_pose_mapping": {
+    "corrections": {
+      "RF_J4_joint": {
+        "basis": "nearest value within latest authored URDF joint limit",
+        "display_position_rad": 0.1,
+        "source_limit_rad": [
+          0.1,
+          1.6
+        ],
+        "source_position_rad": 0.0
+      }
+    },
+    "mapped_joints": {
+      "LF_elbow_joint": {
+        "display_position_rad": -0.4408,
+        "new_child_link": "LF_forearm_link",
+        "new_joint": "LF_J2_joint",
+        "old_child_link": "LF_J2_link",
+        "source_limit_rad": [
+          -2.2,
+          1.65
+        ],
+        "source_position_rad": -0.4408
+      },
+      "LF_finger_joint": {
+        "display_position_rad": 0.0,
+        "new_child_link": "LF_finger_link",
+        "new_joint": "LF_J4_joint",
+        "old_child_link": "LF_J4_link",
+        "source_limit_rad": [
+          -1.6,
+          0.1
+        ],
+        "source_position_rad": 0.0
+      },
+      "LF_shoulder_pitch_joint": {
+        "display_position_rad": -1.0658,
+        "new_child_link": "LF_upper_arm_link",
+        "new_joint": "LF_J1_joint",
+        "old_child_link": "LF_J1_link",
+        "source_limit_rad": [
+          -4.75,
+          1.4
+        ],
+        "source_position_rad": -1.0658
+      },
+      "LF_shoulder_yaw_joint": {
+        "display_position_rad": -0.5507,
+        "new_child_link": "LF_shoulder_link",
+        "new_joint": "LF_J0_joint",
+        "old_child_link": "LF_J0_link",
+        "source_limit_rad": [
+          -2.75,
+          0.7
+        ],
+        "source_position_rad": -0.5507
+      },
+      "LF_wrist_joint": {
+        "display_position_rad": -1.4226,
+        "new_child_link": "LF_palm_link",
+        "new_joint": "LF_J3_joint",
+        "old_child_link": "LF_J3_link",
+        "source_limit_rad": [
+          -2.1,
+          1.65
+        ],
+        "source_position_rad": -1.4226
+      },
+      "LM_ankle_joint": {
+        "display_position_rad": -1.8321,
+        "new_child_link": "LM_calf_link",
+        "new_joint": "LM_J2_joint",
+        "old_child_link": "LM_J2_link",
+        "source_limit_rad": [
+          -2.4,
+          1.8
+        ],
+        "source_position_rad": -1.8321
+      },
+      "LM_hip_joint": {
+        "display_position_rad": 0.0012,
+        "new_child_link": "LM_hip_link",
+        "new_joint": "LM_J0_joint",
+        "old_child_link": "LM_J0_link",
+        "source_limit_rad": [
+          -0.75,
+          1.0
+        ],
+        "source_position_rad": 0.0012
+      },
+      "LM_knee_joint": {
+        "display_position_rad": 0.5356,
+        "new_child_link": "LM_thigh_link",
+        "new_joint": "LM_J1_joint",
+        "old_child_link": "LM_J1_link",
+        "source_limit_rad": [
+          -2.4,
+          1.5
+        ],
+        "source_position_rad": 0.5356
+      },
+      "LR_ankle_joint": {
+        "display_position_rad": -1.8708,
+        "new_child_link": "LR_calf_link",
+        "new_joint": "LR_J2_joint",
+        "old_child_link": "LR_J2_link",
+        "source_limit_rad": [
+          -2.4,
+          1.8
+        ],
+        "source_position_rad": -1.8708
+      },
+      "LR_hip_joint": {
+        "display_position_rad": 0.6313,
+        "new_child_link": "LR_hip_link",
+        "new_joint": "LR_J0_joint",
+        "old_child_link": "LR_J0_link",
+        "source_limit_rad": [
+          -0.6,
+          2.75
+        ],
+        "source_position_rad": 0.6313
+      },
+      "LR_knee_joint": {
+        "display_position_rad": 0.5534,
+        "new_child_link": "LR_thigh_link",
+        "new_joint": "LR_J1_joint",
+        "old_child_link": "LR_J1_link",
+        "source_limit_rad": [
+          -2.4,
+          1.6
+        ],
+        "source_position_rad": 0.5534
+      },
+      "RF_elbow_joint": {
+        "display_position_rad": 0.4414,
+        "new_child_link": "RF_forearm_link",
+        "new_joint": "RF_J2_joint",
+        "old_child_link": "RF_J2_link",
+        "source_limit_rad": [
+          -1.65,
+          2.1
+        ],
+        "source_position_rad": 0.4414
+      },
+      "RF_finger_joint": {
+        "display_position_rad": 0.1,
+        "new_child_link": "RF_finger_link",
+        "new_joint": "RF_J4_joint",
+        "old_child_link": "RF_J4_link",
+        "source_limit_rad": [
+          0.1,
+          1.6
+        ],
+        "source_position_rad": 0.0
+      },
+      "RF_shoulder_pitch_joint": {
+        "display_position_rad": -1.066,
+        "new_child_link": "RF_upper_arm_link",
+        "new_joint": "RF_J1_joint",
+        "old_child_link": "RF_J1_link",
+        "source_limit_rad": [
+          -4.75,
+          1.4
+        ],
+        "source_position_rad": -1.066
+      },
+      "RF_shoulder_yaw_joint": {
+        "display_position_rad": 0.5524,
+        "new_child_link": "RF_shoulder_link",
+        "new_joint": "RF_J0_joint",
+        "old_child_link": "RF_J0_link",
+        "source_limit_rad": [
+          -0.7,
+          2.75
+        ],
+        "source_position_rad": 0.5524
+      },
+      "RF_wrist_joint": {
+        "display_position_rad": 1.4212,
+        "new_child_link": "RF_palm_link",
+        "new_joint": "RF_J3_joint",
+        "old_child_link": "RF_J3_link",
+        "source_limit_rad": [
+          -1.65,
+          2.1
+        ],
+        "source_position_rad": 1.4212
+      },
+      "RM_ankle_joint": {
+        "display_position_rad": 1.8364,
+        "new_child_link": "RM_calf_link",
+        "new_joint": "RM_J2_joint",
+        "old_child_link": "RM_J2_link",
+        "source_limit_rad": [
+          -1.8,
+          2.4
+        ],
+        "source_position_rad": 1.8364
+      },
+      "RM_hip_joint": {
+        "display_position_rad": -0.0012,
+        "new_child_link": "RM_hip_link",
+        "new_joint": "RM_J0_joint",
+        "old_child_link": "RM_J0_link",
+        "source_limit_rad": [
+          -1.0,
+          0.75
+        ],
+        "source_position_rad": -0.0012
+      },
+      "RM_knee_joint": {
+        "display_position_rad": -0.5376,
+        "new_child_link": "RM_thigh_link",
+        "new_joint": "RM_J1_joint",
+        "old_child_link": "RM_J1_link",
+        "source_limit_rad": [
+          -1.5,
+          2.4
+        ],
+        "source_position_rad": -0.5376
+      },
+      "RR_ankle_joint": {
+        "display_position_rad": 1.8739,
+        "new_child_link": "RR_calf_link",
+        "new_joint": "RR_J2_joint",
+        "old_child_link": "RR_J2_link",
+        "source_limit_rad": [
+          -1.8,
+          2.4
+        ],
+        "source_position_rad": 1.8739
+      },
+      "RR_hip_joint": {
+        "display_position_rad": -0.6326,
+        "new_child_link": "RR_hip_link",
+        "new_joint": "RR_J0_joint",
+        "old_child_link": "RR_J0_link",
+        "source_limit_rad": [
+          -2.75,
+          0.6
+        ],
+        "source_position_rad": -0.6326
+      },
+      "RR_knee_joint": {
+        "display_position_rad": -0.5548,
+        "new_child_link": "RR_thigh_link",
+        "new_joint": "RR_J1_joint",
+        "old_child_link": "RR_J1_link",
+        "source_limit_rad": [
+          -1.6,
+          2.4
+        ],
+        "source_position_rad": -0.5548
+      }
+    },
+    "mapping_method": "old_joint_to_old_child_to_audited_new_child_to_new_joint",
+    "source_legacy_pose_sha256": "57487e295490eb950f7cb5462a14bb3d4ea0647df6c62c2b87926025d4c6b138",
+    "status": "mapped_with_nearest_valid_limit_corrections"
+  },
+  "schema_version": 1,
+  "shared_original_visual_collision_meshes": true,
+  "six_hole_interface_validated": false,
+  "source_audit_sha256": "510b3ea4afb7f344828f5b29a51983c586c561e424c9246140479360d59ab75c",
+  "source_base_mass_kg": "0.886006064277726",
+  "source_camera_count": 0,
+  "source_joint_metadata": {
+    "LF_finger_grip_insert_link": {
+      "name": "LF_finger_grip_insert_joint",
+      "type": "fixed"
+    },
+    "LF_finger_link": {
+      "axis": "1 0 0",
+      "effort": "1.5",
+      "lower": "-1.6",
+      "name": "LF_J4_joint",
+      "type": "revolute",
+      "upper": "0.1",
+      "velocity": "42"
+    },
+    "LF_finger_tip_link": {
+      "name": "LF_finger_tip_joint",
+      "type": "fixed"
+    },
+    "LF_forearm_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-2.2",
+      "name": "LF_J2_joint",
+      "type": "revolute",
+      "upper": "1.65",
+      "velocity": "42"
+    },
+    "LF_palm_grip_insert_link": {
+      "name": "LF_palm_grip_insert_joint",
+      "type": "fixed"
+    },
+    "LF_palm_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-2.1",
+      "name": "LF_J3_joint",
+      "type": "revolute",
+      "upper": "1.65",
+      "velocity": "42"
+    },
+    "LF_palm_pad_b_link": {
+      "name": "LF_palm_pad_b_joint",
+      "type": "fixed"
+    },
+    "LF_palm_pad_f_link": {
+      "name": "LF_palm_pad_f_joint",
+      "type": "fixed"
+    },
+    "LF_shoulder_link": {
+      "axis": "0 0 1",
+      "effort": "1.5",
+      "lower": "-2.75",
+      "name": "LF_J0_joint",
+      "type": "revolute",
+      "upper": "0.7",
+      "velocity": "42"
+    },
+    "LF_upper_arm_link": {
+      "axis": "0 1 0",
+      "effort": "0.7",
+      "lower": "-4.75",
+      "name": "LF_J1_joint",
+      "type": "revolute",
+      "upper": "1.4",
+      "velocity": "42"
+    },
+    "LM_calf_link": {
+      "axis": "0.999999999998317 0 0",
+      "effort": "0.7",
+      "lower": "-2.4",
+      "name": "LM_J2_joint",
+      "type": "revolute",
+      "upper": "1.8",
+      "velocity": "42"
+    },
+    "LM_foot_tip_link": {
+      "name": "LM_foot_tip_joint",
+      "type": "fixed"
+    },
+    "LM_hip_link": {
+      "axis": "0 0 1",
+      "effort": "1.5",
+      "lower": "-0.75",
+      "name": "LM_J0_joint",
+      "type": "revolute",
+      "upper": "1",
+      "velocity": "42"
+    },
+    "LM_thigh_link": {
+      "axis": "0.999999999998317 0 0",
+      "effort": "0.7",
+      "lower": "-2.4",
+      "name": "LM_J1_joint",
+      "type": "revolute",
+      "upper": "1.5",
+      "velocity": "42"
+    },
+    "LR_calf_link": {
+      "axis": "0.999999999998317 0 0",
+      "effort": "0.7",
+      "lower": "-2.4",
+      "name": "LR_J2_joint",
+      "type": "revolute",
+      "upper": "1.8",
+      "velocity": "42"
+    },
+    "LR_foot_tip_link": {
+      "name": "LR_foot_tip_joint",
+      "type": "fixed"
+    },
+    "LR_hip_link": {
+      "axis": "0 0 1",
+      "effort": "1.5",
+      "lower": "-0.6",
+      "name": "LR_J0_joint",
+      "type": "revolute",
+      "upper": "2.75",
+      "velocity": "42"
+    },
+    "LR_thigh_link": {
+      "axis": "0.999999999998317 0 0",
+      "effort": "0.7",
+      "lower": "-2.4",
+      "name": "LR_J1_joint",
+      "type": "revolute",
+      "upper": "1.6",
+      "velocity": "42"
+    },
+    "RF_finger_grip_insert_link": {
+      "name": "RF_finger_grip_insert_joint",
+      "type": "fixed"
+    },
+    "RF_finger_link": {
+      "axis": "1 0 0",
+      "effort": "1.5",
+      "lower": "0.1",
+      "name": "RF_J4_joint",
+      "type": "revolute",
+      "upper": "1.6",
+      "velocity": "42"
+    },
+    "RF_finger_tip_link": {
+      "name": "RF_finger_tip_joint",
+      "type": "fixed"
+    },
+    "RF_forearm_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-1.65",
+      "name": "RF_J2_joint",
+      "type": "revolute",
+      "upper": "2.1",
+      "velocity": "42"
+    },
+    "RF_palm_grip_insert_link": {
+      "name": "RF_palm_grip_insert_joint",
+      "type": "fixed"
+    },
+    "RF_palm_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-1.65",
+      "name": "RF_J3_joint",
+      "type": "revolute",
+      "upper": "2.1",
+      "velocity": "42"
+    },
+    "RF_palm_pad_b_link": {
+      "name": "RF_palm_pad_b_joint",
+      "type": "fixed"
+    },
+    "RF_palm_pad_f_link": {
+      "name": "RF_palm_pad_f_joint",
+      "type": "fixed"
+    },
+    "RF_shoulder_link": {
+      "axis": "0 0 1",
+      "effort": "1.5",
+      "lower": "-0.7",
+      "name": "RF_J0_joint",
+      "type": "revolute",
+      "upper": "2.75",
+      "velocity": "42"
+    },
+    "RF_upper_arm_link": {
+      "axis": "0 1 0",
+      "effort": "0.7",
+      "lower": "-4.75",
+      "name": "RF_J1_joint",
+      "type": "revolute",
+      "upper": "1.4",
+      "velocity": "42"
+    },
+    "RM_calf_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-1.8",
+      "name": "RM_J2_joint",
+      "type": "revolute",
+      "upper": "2.4",
+      "velocity": "42"
+    },
+    "RM_foot_tip_link": {
+      "name": "RM_foot_tip_joint",
+      "type": "fixed"
+    },
+    "RM_hip_link": {
+      "axis": "0 0 1",
+      "effort": "1.5",
+      "lower": "-1",
+      "name": "RM_J0_joint",
+      "type": "revolute",
+      "upper": "0.75",
+      "velocity": "42"
+    },
+    "RM_thigh_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-1.5",
+      "name": "RM_J1_joint",
+      "type": "revolute",
+      "upper": "2.4",
+      "velocity": "42"
+    },
+    "RR_calf_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-1.8",
+      "name": "RR_J2_joint",
+      "type": "revolute",
+      "upper": "2.4",
+      "velocity": "42"
+    },
+    "RR_foot_tip_link": {
+      "name": "RR_foot_tip_joint",
+      "type": "fixed"
+    },
+    "RR_hip_link": {
+      "axis": "0 0 1",
+      "effort": "1.5",
+      "lower": "-2.75",
+      "name": "RR_J0_joint",
+      "type": "revolute",
+      "upper": "0.6",
+      "velocity": "42"
+    },
+    "RR_thigh_link": {
+      "axis": "1 0 0",
+      "effort": "0.7",
+      "lower": "-1.6",
+      "name": "RR_J1_joint",
+      "type": "revolute",
+      "upper": "2.4",
+      "velocity": "42"
+    },
+    "camera_link": {
+      "name": "camera_joint",
+      "type": "fixed"
+    },
+    "display_module_link": {
+      "name": "display_module_joint",
+      "type": "fixed"
+    },
+    "tof_sensor_link": {
+      "name": "tof_sensor_joint",
+      "type": "fixed"
+    },
+    "upper_shell_link": {
+      "name": "upper_shell_joint",
+      "type": "fixed"
+    }
+  },
+  "source_joint_order": [
+    "upper_shell_joint",
+    "display_module_joint",
+    "tof_sensor_joint",
+    "camera_joint",
+    "LF_J0_joint",
+    "LF_J1_joint",
+    "LF_J2_joint",
+    "LF_J3_joint",
+    "LF_palm_pad_f_joint",
+    "LF_palm_pad_b_joint",
+    "LF_J4_joint",
+    "LF_finger_tip_joint",
+    "LF_finger_grip_insert_joint",
+    "LF_palm_grip_insert_joint",
+    "RF_J0_joint",
+    "RF_J1_joint",
+    "RF_J2_joint",
+    "RF_J3_joint",
+    "RF_palm_pad_f_joint",
+    "RF_palm_pad_b_joint",
+    "RF_palm_grip_insert_joint",
+    "RF_J4_joint",
+    "RF_finger_grip_insert_joint",
+    "RF_finger_tip_joint",
+    "LM_J0_joint",
+    "LM_J1_joint",
+    "LM_J2_joint",
+    "LM_foot_tip_joint",
+    "RM_J0_joint",
+    "RM_J1_joint",
+    "RM_J2_joint",
+    "RM_foot_tip_joint",
+    "LR_J0_joint",
+    "LR_J1_joint",
+    "LR_J2_joint",
+    "LR_foot_tip_joint",
+    "RR_J0_joint",
+    "RR_J1_joint",
+    "RR_J2_joint",
+    "RR_foot_tip_joint"
+  ],
+  "source_joints": 40,
+  "source_links": 41,
+  "source_meshes": [
+    {
+      "bytes": 115284,
+      "path": "meshes/visual/LF_finger_grip_insert_link.stl",
+      "sha256": "cf5faec0faa0693b191d89ef58c427e562e983dcb47a6c3eed2f135e0d500c18"
+    },
+    {
+      "bytes": 408184,
+      "path": "meshes/visual/LF_finger_link.stl",
+      "sha256": "29f8b316d6d3df884bda9a1e19b8f7a6ffc2dcada28c3f52bd560710ea4473b9"
+    },
+    {
+      "bytes": 706784,
+      "path": "meshes/visual/LF_finger_tip_link.stl",
+      "sha256": "a557c0a840392724c0f544d19299ca6e55651f75143d7d9fce79afe11ae07da8"
+    },
+    {
+      "bytes": 450584,
+      "path": "meshes/visual/LF_forearm_link.stl",
+      "sha256": "e7b2d8f16bb5efa514c8170e15f093ec0dbca345672534386f0b77b7ff455e4e"
+    },
+    {
+      "bytes": 128384,
+      "path": "meshes/visual/LF_palm_grip_insert_link.stl",
+      "sha256": "db76fb24837159e3b141420ea5b5b1f2dc8ba2e366a6edeb44f344c0e060795a"
+    },
+    {
+      "bytes": 754084,
+      "path": "meshes/visual/LF_palm_link.stl",
+      "sha256": "0a69f36298ed1f64b782668b6d0266ccc4b4299593f0071e76333e6577efc177"
+    },
+    {
+      "bytes": 287384,
+      "path": "meshes/visual/LF_palm_pad_b_link.stl",
+      "sha256": "3acff9d1d21951868df1e0b170c88153e9605861bc3193eb82d8516607abb20e"
+    },
+    {
+      "bytes": 296784,
+      "path": "meshes/visual/LF_palm_pad_f_link.stl",
+      "sha256": "bd1f4af5c9d4b0a67836a423027d3bd83a913ce9cefe4ee6b276f7ee99c4520f"
+    },
+    {
+      "bytes": 753784,
+      "path": "meshes/visual/LF_shoulder_link.stl",
+      "sha256": "2565d7fd191af7356479053ce6ba0b1aa4d6c12a1f10ecef13b82690644c9cb2"
+    },
+    {
+      "bytes": 605584,
+      "path": "meshes/visual/LF_upper_arm_link.stl",
+      "sha256": "f8a5eee25c2e251f7b00e8667150cd01e92bcdd2e31287b2022a972199490abc"
+    },
+    {
+      "bytes": 717984,
+      "path": "meshes/visual/LM_calf_link.stl",
+      "sha256": "42883897518fd83e09892b3215a8a8564a5bff9cc48602316a1d282d77fbc28d"
+    },
+    {
+      "bytes": 96784,
+      "path": "meshes/visual/LM_foot_tip_link.stl",
+      "sha256": "364dcfdbf94243f914272f024e6cd1cad95799ab427b38e0235bdadfd10193fc"
+    },
+    {
+      "bytes": 658484,
+      "path": "meshes/visual/LM_hip_link.stl",
+      "sha256": "a8f14193f1ffa7c177dbecb349b00a461393de7d444d9bd3771b1370fc14298e"
+    },
+    {
+      "bytes": 450584,
+      "path": "meshes/visual/LM_thigh_link.stl",
+      "sha256": "4724f8aa3248794f7e783a94dc3379dbf04a21dcef2f8c956c29f16652b5b012"
+    },
+    {
+      "bytes": 717984,
+      "path": "meshes/visual/LR_calf_link.stl",
+      "sha256": "65345119ca4fe8fffea9d0eaf13f1b01509b805eaeb4d17957ecebf82a0e066f"
+    },
+    {
+      "bytes": 96784,
+      "path": "meshes/visual/LR_foot_tip_link.stl",
+      "sha256": "a9f78dcf40dfa524087764fb2d7604b3411128426dc64bc412ada199c36294a9"
+    },
+    {
+      "bytes": 658484,
+      "path": "meshes/visual/LR_hip_link.stl",
+      "sha256": "341240e34b243160b564471f1510b993b7247f87acbcb284b65135cd3e37e3c4"
+    },
+    {
+      "bytes": 450584,
+      "path": "meshes/visual/LR_thigh_link.stl",
+      "sha256": "7b08f377b6712838b90c2225afb2c719111452223554bb08fb503058675db6a0"
+    },
+    {
+      "bytes": 115284,
+      "path": "meshes/visual/RF_finger_grip_insert_link.stl",
+      "sha256": "bbaff916342d374f7f78c1f03ca71e8dc235174b5d4651e7e2df4e6dc2ca01da"
+    },
+    {
+      "bytes": 408184,
+      "path": "meshes/visual/RF_finger_link.stl",
+      "sha256": "618b0e23e3f3e7bc8c4d2425692d2580308f721c3062b6479d349defafd26ec4"
+    },
+    {
+      "bytes": 706784,
+      "path": "meshes/visual/RF_finger_tip_link.stl",
+      "sha256": "16ab474a946915080faa128e6c2f98766e262f3ca8baccd91330e33ef5e2350a"
+    },
+    {
+      "bytes": 450584,
+      "path": "meshes/visual/RF_forearm_link.stl",
+      "sha256": "af869fb7e3e1a9a4e41acd7187598aac8101276d40ce4e9c9c3da427022d6096"
+    },
+    {
+      "bytes": 128384,
+      "path": "meshes/visual/RF_palm_grip_insert_link.stl",
+      "sha256": "f3299e00de883e90b8a2f69fd70f1aa291edc9c87f33c051a50d3f4a3040c4d8"
+    },
+    {
+      "bytes": 754084,
+      "path": "meshes/visual/RF_palm_link.stl",
+      "sha256": "9d74629431797a8472c24e36c8b79e629c28190b490b6a79e28743183d92f33e"
+    },
+    {
+      "bytes": 296784,
+      "path": "meshes/visual/RF_palm_pad_b_link.stl",
+      "sha256": "793bc432bc333286093f1a5ba5e69b806c4d129a24829757e3b0c7c1ff48bbef"
+    },
+    {
+      "bytes": 287384,
+      "path": "meshes/visual/RF_palm_pad_f_link.stl",
+      "sha256": "1f777ecee4bcde201aa7614c44af7ad026400819c4735687934c6122ccafebec"
+    },
+    {
+      "bytes": 753784,
+      "path": "meshes/visual/RF_shoulder_link.stl",
+      "sha256": "f0a00584b81b67ea041220a80fa46d56a5f0af93f509fdb941dde89f707a36d5"
+    },
+    {
+      "bytes": 605584,
+      "path": "meshes/visual/RF_upper_arm_link.stl",
+      "sha256": "3e40d4a4e96d7cca0fa5540d1a08dfb6ef53f0b0302d0adce72e440429c0a5ce"
+    },
+    {
+      "bytes": 669384,
+      "path": "meshes/visual/RM_calf_link.stl",
+      "sha256": "18972e56b4f0fd023907bde4e08ecd37b8c7d0b46d906eaf9b34b4caa3dd7f78"
+    },
+    {
+      "bytes": 96784,
+      "path": "meshes/visual/RM_foot_tip_link.stl",
+      "sha256": "d0e1306ebf0c47412d86dcce89923d3b7a41defecf8bc956bf67634a6202440b"
+    },
+    {
+      "bytes": 658484,
+      "path": "meshes/visual/RM_hip_link.stl",
+      "sha256": "f0c70f361ecdca1835a9c94b42389ffbf25f0475daded643dac65e61609bfb39"
+    },
+    {
+      "bytes": 450584,
+      "path": "meshes/visual/RM_thigh_link.stl",
+      "sha256": "e441e75bf98ac85066f56aafc89ec440f04cea6d647cfdab56b2c2e416e545d3"
+    },
+    {
+      "bytes": 717984,
+      "path": "meshes/visual/RR_calf_link.stl",
+      "sha256": "61a2343865b7bc2982c876b0c682b608c083a6d543b1c33c8c16e08600e8060c"
+    },
+    {
+      "bytes": 96784,
+      "path": "meshes/visual/RR_foot_tip_link.stl",
+      "sha256": "dfd85194297519dc276d98647e34f1ed88fca2dd06e6d639ce4753cd839d868d"
+    },
+    {
+      "bytes": 658484,
+      "path": "meshes/visual/RR_hip_link.stl",
+      "sha256": "15cb10d1ef80ecbd9ab5515cd2b4ccf67fb9e350fa938cc31dedb3881c95b803"
+    },
+    {
+      "bytes": 450584,
+      "path": "meshes/visual/RR_thigh_link.stl",
+      "sha256": "fee24f277a740042a758754c3e81efb805045984698aadd4a3baed557f9cb083"
+    },
+    {
+      "bytes": 3801984,
+      "path": "meshes/visual/base_link.stl",
+      "sha256": "0c1bd088c12db6ace677238800f81bd270a04270891dee934a3ed8b46dfcd68f"
+    },
+    {
+      "bytes": 32484,
+      "path": "meshes/visual/camera_link.stl",
+      "sha256": "02fb606f9630c1c2d6e33ebc99ab27be12bd88664805845f5b72bbb1355f20ae"
+    },
+    {
+      "bytes": 42534,
+      "path": "meshes/visual/display_module_link.stl",
+      "sha256": "c019dd2abf703c94dc2dbf693acce85e8b62ee9ada1af21a0786afd00bd94b2e"
+    },
+    {
+      "bytes": 104484,
+      "path": "meshes/visual/tof_sensor_link.stl",
+      "sha256": "4813e253c3b471319254a330f06715473f388f3b91dc7fb8da097cec9724aafd"
+    },
+    {
+      "bytes": 907284,
+      "path": "meshes/visual/upper_shell_link.stl",
+      "sha256": "25cadf3b3a05f56de945468858315a867f4d3c9b5967911c9e395d81f3176fc9"
+    }
+  ],
+  "source_movable_joints": 22,
+  "source_revision_comment": "<!--\r\n  model_revision: V1.6-1\r\n  ros_package_version: 1.0.0\r\n  Revision metadata only; robot names and mesh paths remain version-independent.\r\n-->",
+  "source_sensor_count": 0,
+  "source_urdf_path": "urdf/jumper.urdf",
+  "source_urdf_sha256": "6e5b22057b59ca7e0187a07254ddf9b7f4f7a2693cf77b368bd89ed8e467a686",
+  "visual_geom_group": 2
+}

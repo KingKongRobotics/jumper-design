@@ -1,0 +1,62 @@
+# Per-user configuration, credentials and installed platform assets
+.local/
+.env
+.env.*
+!.env.example
+*.local.json
+credentials*.json
+token*.json
+# Generated jobs and binary deliveries
+workspaces/
+projects/
+reference_workspace/
+checks/
+workbench/
+outputs/
+dist/
+/build/
+*.egg-info/
+*.stl
+*.step
+*.STEP
+*.stp
+*.brep
+*.npz
+*.glb
+*.gltf
+*.ply
+*.obj
+*.fbx
+*.blend
+*.blend1
+*.3mf
+*.gcode
+*.zip
+*.skin
+*.map
+# Only the curated current skin collection is versioned; build outputs stay local.
+!library/skins/**/*.skin
+!library/maps/**/*.map
+!library/map-sources/**/assets/**
+# Runtimes and editor state
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/tmp*/
+.coverage
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+# Curated deliveries and robot meshes use Git LFS.
+!platforms/bundles/*.platform.zip
+!library/assets/**/*.stl
+!library/assets/**/*.3mf
+!robots/**/meshes/*.stl
+!robots/**/meshes/*.STL
+!robots/**/meshes/**/*.stl
+!robots/**/meshes/**/*.STL
+!library/simulations/**/meshes/*.stl
+!library/simulations/**/meshes/*.STL
