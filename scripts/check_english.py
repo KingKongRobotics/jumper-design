@@ -63,7 +63,13 @@ def audit(root: Path, require_packages: bool = False) -> dict:
                 checked += 1
         elif suffix in TEXT or path.name in {".gitignore", ".gitattributes"}:
             try:
-                if text_has_han(path.read_bytes(), suffix):
+                data = path.read_bytes()
+                if name == "README.zh-CN.md":
+                    data.decode("utf-8-sig")  # Explicitly supported documentation translation.
+                    continue
+                if name == "README.md":
+                    data = data.replace("**English** | [\u7b80\u4f53\u4e2d\u6587](README.zh-CN.md)".encode("utf-8"), b"", 1)
+                if text_has_han(data, suffix):
                     issues.append(f"{name}: non-English repository text")
             except UnicodeDecodeError:
                 issues.append(f"{name}: expected UTF-8 text")

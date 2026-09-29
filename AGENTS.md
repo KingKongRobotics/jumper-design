@@ -72,3 +72,7 @@ The current BE Web `be-web/1` is the shared standard for scene color; read [colo
 ## Public distribution licensing
 
 The maintainer selected Apache-2.0 for maintainer-owned content in this public candidate. Preserve LICENSE, NOTICE and third-party attribution. Do not restore a CC BY split or a pending license-choice statement. License selection does not resolve upstream ownership: imported code and assets require a recorded distribution basis before publication. Generated user packages do not inherit the tool's license automatically. Keep all package changes hash-consistent and retain notices for embedded assets. Before publishing, run the package, English, publication and fresh-clone checks documented in docs/release-checklist.md.
+
+## README translations
+
+Maintain README.md as the English homepage and README.zh-CN.md as its Simplified Chinese translation, with reciprocal language links. Keep prompts, examples, commands and capability boundaries aligned. These two documentation surfaces are explicit exceptions to the English-only rule: only the language-switch label may use Chinese in README.md. Source code and public package metadata remain English.

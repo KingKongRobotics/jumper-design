@@ -15,6 +15,21 @@ SPEC.loader.exec_module(MODULE)
 
 
 class EnglishPackageTests(unittest.TestCase):
+    def test_readme_translation_exception_is_scoped(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            label = "".join(chr(n) for n in (0x7b80, 0x4f53, 0x4e2d, 0x6587))
+            nav = "**English** | [" + label + "](README.zh-CN.md)"
+            (root / "README.md").write_text(nav, encoding="utf-8")
+            (root / "README.zh-CN.md").write_text(label, encoding="utf-8")
+            self.assertTrue(MODULE.audit(root)["ok"])
+            (root / "README.md").write_text(nav + "\n" + label, encoding="utf-8")
+            self.assertIn("README.md: non-English repository text", MODULE.audit(root)["issues"])
+            (root / "README.md").write_text(nav, encoding="utf-8")
+            (root / "other.md").write_text(label, encoding="utf-8")
+            self.assertIn("other.md: non-English repository text", MODULE.audit(root)["issues"])
+
     def test_ignore_rules_cannot_hide_compiler_source(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

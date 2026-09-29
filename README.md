@@ -1,6 +1,26 @@
 # Design Workflow
 
-Design Workflow creates, validates, and exchanges robot appearances (`.skin`) and environments (`.map`). The repository provides the Python reference tools, package standards, a versioned Jumper robot baseline, and the complete collection of 16 appearance packages and 13 environment packages.
+**English** | [简体中文](README.zh-CN.md)
+
+**Design your robot's look and world with a single prompt.**
+
+Describe what you want to your AI coding assistant. Design Workflow provides the generation rules, package formats, and validation tools for robot appearances (`.skin`) and environments (`.map`).
+
+## One prompt, two workflows
+
+After [setting up the project](#quick-start), open this repository in an AI coding assistant that can read files and run commands. Ask it to read [AGENTS.md](AGENTS.md), then describe the appearance or environment you want.
+
+| Change the appearance | Create an environment |
+|---|---|
+| **Your prompt:** "Give Jumper a warm sand ranger appearance with coordinated body and limb colors, and export it as a .skin." | **Your prompt:** "Create a park pump track with rolling terrain, trees, benches, and a ready-to-place Jumper, and export it as a .map." |
+| Describe → Review design → Generate → Validate | Describe → Build scene → Preview → Validate |
+| **Result:** A display-only, complete-robot `.skin` ready to import into a compatible viewer or simulator. | **Result:** A self-contained `.map` with environment assets, a default robot, and a declared spawn point. |
+| [![Warm Sand Ranger example](docs/assets/examples/warm-sand-ranger-integrated-v2.png)](library/skins/warm-sand-ranger-integrated-v2.skin) | [![Park Pump Track example](docs/assets/examples/park-pump-track.png)](library/maps/park-pump-track.map) |
+| [Download an example .skin](library/skins/warm-sand-ranger-integrated-v2.skin) | [Download an example .map](library/maps/park-pump-track.map) |
+
+A single prompt starts the workflow. Your assistant checks the available tools and inputs, asks you to choose a design when needed, and validates the resulting package. New geometry may require an external modeling tool or a supplied model; arbitrary designs are not guaranteed to finish automatically in one step. The images above are existing example packages, not a promise of an identical result from each prompt.
+
+The repository includes the Python reference tools, package standards, a versioned Jumper robot baseline, and the complete collection of **16 appearances and 13 environments**. Explore the selected examples below or follow the [detailed workflow](docs/workflow.md).
 
 ## See what you can create
 
