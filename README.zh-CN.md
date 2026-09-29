@@ -6,22 +6,6 @@
 
 向你的 AI 编程助手描述需求。Design Workflow 为机器人外观（`.skin`）和环境场景（`.map`）提供生成规则、文件标准与校验工具。
 
-## 一句话，两条工作流
-
-完成[项目安装](#快速开始)后，在能够读取文件、执行命令的 AI 编程助手中打开本仓库。让助手先阅读 [AGENTS.md](AGENTS.md)，再描述你想要的外观或场景。
-
-| 一句话换外观 | 一句话生成场景 |
-|---|---|
-| **示例指令：**“给跳跳换上暖沙游侠外观，机身和肢体采用协调配色，导出为 .skin。” | **示例指令：**“生成一个有起伏路面、树木和长椅的公园泵道，放入可直接使用的跳跳，导出为 .map。” |
-| 描述需求 → 确认设计 → 生成 → 校验 | 描述需求 → 构建场景 → 预览 → 校验 |
-| **交付结果：**用于显示的整机 `.skin`，可导入兼容的查看器或仿真器。 | **交付结果：**包含环境资源、默认机器人及出生位置的独立 `.map`。 |
-| [![暖沙游侠示例](docs/assets/examples/warm-sand-ranger-integrated-v2.png)](library/skins/warm-sand-ranger-integrated-v2.skin) | [![公园泵道示例](docs/assets/examples/park-pump-track.png)](library/maps/park-pump-track.map) |
-| [下载示例 .skin](library/skins/warm-sand-ranger-integrated-v2.skin) | [下载示例 .map](library/maps/park-pump-track.map) |
-
-一句话是工作流的入口。助手会检查可用工具和输入，必要时请你选择设计方案，再生成并校验文件。新造型可能需要外部建模工具或你提供的模型，不能保证任意需求都能一步自动完成。上图展示已有案例，不代表每次输入示例指令都会得到完全相同的结果。
-
-仓库包含 Python 参考工具、文件标准、带版本约束的跳跳基准，以及完整的 **16 个外观和 13 个场景**。下面展示部分案例，更多操作见[详细工作流](docs/workflow.md)。
-
 ## 看看可以做什么
 
 ### 机器人外观 · `.skin`
@@ -43,6 +27,22 @@
 [浏览全部外观](library/skins/README.md) · [浏览全部场景](library/maps/README.md) · [查看工作流](docs/workflow.md)
 
 案例图片来自已发布文件内嵌的实际缩略图。这里的图片是文档展示副本；每个 `.skin`、`.map` 都包含自身所需资源。
+
+## 一句话，两条工作流
+
+完成[项目安装](#快速开始)后，在能够读取文件、执行命令的 AI 编程助手中打开本仓库。让助手先阅读 [AGENTS.md](AGENTS.md)，再描述你想要的外观或场景。
+
+| 一句话换外观 | 一句话生成场景 |
+|---|---|
+| **示例指令：**“给跳跳换上暖沙游侠外观，机身和肢体采用协调配色，导出为 .skin。” | **示例指令：**“生成一个有起伏路面、树木和长椅的公园泵道，放入可直接使用的跳跳，导出为 .map。” |
+| 描述需求 → 确认设计 → 生成 → 校验 | 描述需求 → 构建场景 → 预览 → 校验 |
+| **交付结果：**用于显示的整机 `.skin`，可导入兼容的查看器或仿真器。 | **交付结果：**包含环境资源、默认机器人及出生位置的独立 `.map`。 |
+| [![暖沙游侠示例](docs/assets/examples/warm-sand-ranger-integrated-v2.png)](library/skins/warm-sand-ranger-integrated-v2.skin) | [![公园泵道示例](docs/assets/examples/park-pump-track.png)](library/maps/park-pump-track.map) |
+| [下载示例 .skin](library/skins/warm-sand-ranger-integrated-v2.skin) | [下载示例 .map](library/maps/park-pump-track.map) |
+
+一句话是工作流的入口。助手会检查可用工具和输入，必要时请你选择设计方案，再生成并校验文件。新造型可能需要外部建模工具或你提供的模型，不能保证任意需求都能一步自动完成。上图展示已有案例，不代表每次输入示例指令都会得到完全相同的结果。
+
+仓库包含 Python 参考工具、文件标准、带版本约束的跳跳基准，以及完整的 **16 个外观和 13 个场景**。上面展示了部分案例，更多操作见[详细工作流](docs/workflow.md)。
 
 ## 快速开始
 
