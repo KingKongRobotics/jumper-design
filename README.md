@@ -32,7 +32,7 @@ The examples are existing appearance and scene packages. Your assistant asks you
 
 ## Where to find things
 
-| | |
+| Resource | Purpose |
 |---|---|
 | [Jumper](https://github.com/KingKongRobotics/jumper) | Shared entry point for appearance design, motion training, and scene creation. |
 | [Quick start](docs/quickstart.md) | Install the tools, verify an example, and export a map. |

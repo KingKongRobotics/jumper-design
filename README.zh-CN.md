@@ -32,7 +32,7 @@
 
 ## 相关项目与指南
 
-| | |
+| 资源 | 用途 |
 |---|---|
 | [跳跳](https://github.com/KingKongRobotics/jumper) | 外观设计、动作训练与场景生成的统一入口。 |
 | [快速开始](docs/quickstart.md) | 安装工具、校验示例并导出场景。 |
