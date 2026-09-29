@@ -27,7 +27,7 @@ ACTIONS = {
     "requirements": "Record platform, closed/preserved front, permitted envelope, wall and printer requirements.",
     "concept": "Present appearance candidates and wait for the user to select one. Record selection.json with the actual user confirmation before choosing a modeling tool.",
     "multiview": "Create consistent views of the selected design; review front, back and sides.",
-    "appearance": "After user selection, choose a suitable available tool per docs/providers.md; generate or import the selected design, review actual multiview geometry and colors, and record axes and transform. Never silently substitute primitive geometry.",
+    "appearance": "After user selection, choose a suitable available tool per docs/providers.md; before spending even free credits, verify current account tier, credits/export allowance, exact model and target-format export eligibility, total cost and authorization; unknown download eligibility blocks generation and extra retries need covered authorization. Generate or import the selected design, review actual multiview geometry and colors, and record axes and transform. Never silently substitute primitive geometry.",
     "engineering": "Use a geometry producer to adapt the exterior, cavity and roots, then attach the protected CAD interfaces.",
     "validation": "Run independent checks on the actual exported mesh, interfaces, walls, access and permitted envelope; record detailed reports.",
     "ams": "Create a color 3MF from the frozen mesh and independently compare mesh, colors and actual previews.",
@@ -336,7 +336,7 @@ Front opening: `{args.front_opening}`. Units: millimeters. Keep original inputs 
 
 Follow the repository's workflow documentation and skills. Run `shellflow next {name}` to inspect evidence and the next stage. If the platform pack is unavailable, prepare requirements and concepts but do not invent mechanical interfaces. Confirm unknown requirements when they affect work. Providers and accounts belong to the user; do not infer authorization to spend credits or use paid services.
 
-For new appearance geometry, present candidates and wait for the user selection before choosing a modeling tool or modeling. Reuse an explicit existing user selection without asking again. Record evidence/selection.json per docs/workflow.md; never invent user confirmation. Follow docs/providers.md for tool choice and actual-model visual review.
+For new appearance geometry, present candidates and wait for the user selection before choosing a modeling tool or modeling. Reuse an explicit existing user selection without asking again. Record evidence/selection.json per docs/workflow.md; never invent user confirmation. Follow docs/providers.md for tool choice and actual-model visual review. Before consuming any service credits, verify current account tier, credits/export allowances, model/version options, required format download eligibility, cost, visibility and authorization; record local evidence/provider-preflight.md. Unknown export eligibility blocks generation. Preserve blocked results and do not spend on another version or retry unless user authorization covers it.
 
 The stages are: {', '.join(STAGES)}.
 Each new shell requires both deliveries: printable STL and AMS 3MF, plus a full-robot URDF, MJCF, relative mesh assets and assembly report. Use `assemble` for the local simulation exporter after engineering. Retain the real robot's body/joint tree; do not invent a replacement robot.

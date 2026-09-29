@@ -33,10 +33,26 @@ After selection, inspect available tools, input assets and user authorization:
 
 State the chosen route, why it fits, and any fidelity limits before modeling. Obtain explicit authorization for paid services when it has not already been given. Routine local modeling within the selected design needs no additional approval.
 
+## Mandatory service preflight before spending credits
+
+After design selection and before any credit-consuming generation (including free credits), verify the entire generation-to-download route using the current account UI and current official service information. A visible Generate button or a credit balance does not prove export eligibility.
+
+- Identify the active account tier (free or paid), remaining generation credits and remaining export allowance. Distinguish website membership from API entitlement; never assume they share quotas.
+- Verify the exact selected model version and options can export the required format, such as GLB, with the required geometry and color/texture data. Check generation cost, export charges, resolution restrictions and subscription requirements before submitting. Do not assume older or newer versions have the same permissions.
+- Check whether inputs/outputs become public and whether the applicable usage terms match the intended use. Obtain any missing user authorization before uploading or spending.
+- Record the check time, service/route, account tier (without identity or secrets), model version/options, target format, generation/export costs and allowances, evidence source, relevant restrictions and the scope of existing spending authorization in local `evidence/provider-preflight.md`. Do not commit account screenshots, balances or private account data. Report unknown values as unknown, not zero or unlimited.
+- Proceed only when the required download route is established and the total expected consumption is covered by user authorization. Free credits are also limited resources. If eligibility is unclear, stop before spending and explain the missing information; use a non-spending account/help/export check or an existing eligible asset where available. Never generate a paid test merely to discover export permissions.
+
+Recheck after changing the account, route, model version, generation/export options, or after an entitlement/quota error; refresh balances before another charge. Do not hard-code tier rules, version names, prices or monthly quotas from screenshots or earlier tasks.
+
+If generation succeeds but export is blocked, preserve the task ID and result. Explain the blocker and additional cost before retrying. Do not automatically regenerate with a different version, spend more credits, subscribe or purchase a plan. Reuse valid existing authorization only when it explicitly covers the retry and its cost; otherwise obtain it first. A materially changed design still needs a new design choice.
+
+This is an assistant execution requirement. The CLI does not query service accounts or enforce remote billing permissions; a local note alone does not verify entitlement.
+
 ## Modeling instruction template
 
 Use this with the selected design and task constraints, independent of provider:
 
-> Reproduce the user-selected design identified in selection.json. Preserve its silhouette, proportions, characteristic details and palette. Use the selected robot profile and declared units/axes. Modify visual geometry only for display packages; retain baseline mechanics and activity space. Keep original assets intact and record editable source, actual tool/version, parameters and exports. Do not substitute primitive shapes for complex selected features merely to finish. Render the real model from front, side and back and mounted on the complete robot, with both gray geometry and color review. Compare with the selected reference and revise mismatches. If the tool cannot meet the design, explain the limitation and wait for a user-selected alternative. Concept images and successful package validation are not evidence of visual fidelity or physical fit.
+> Before any service generation, complete the mandatory service preflight above and establish an authorized generation-to-download route. Reproduce the user-selected design identified in selection.json. Preserve its silhouette, proportions, characteristic details and palette. Use the selected robot profile and declared units/axes. Modify visual geometry only for display packages; retain baseline mechanics and activity space. Keep original assets intact and record editable source, actual tool/version, parameters and exports. Do not substitute primitive shapes for complex selected features merely to finish. Render the real model from front, side and back and mounted on the complete robot, with both gray geometry and color review. Compare with the selected reference and revise mismatches. If the tool cannot meet the design, explain the limitation and wait for a user-selected alternative. Concept images and successful package validation are not evidence of visual fidelity or physical fit.
 
 Only apply cavity, mounting-interface and print engineering rules when physical printing is requested. A model-service result receives the same visual review as a locally modeled result; neither route guarantees aesthetic quality.
