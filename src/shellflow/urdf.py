@@ -532,13 +532,14 @@ def verify_urdf(mjcf_path: Path, urdf_path: Path, *, poses: int = 10) -> dict:
         for name in joint_order:
             j, k = ja[name], jb[name]
             qa, qb = a.jnt_qposadr[j], b.jnt_qposadr[k]
-            joint = a.jnt_type[j]
-            if joint == mujoco.mjtJoint.mjJNT_FREE:
+            # Compare integer IDs: NumPy scalar / pybind enum equality varies by build.
+            joint = int(a.jnt_type[j])
+            if joint == int(mujoco.mjtJoint.mjJNT_FREE):
                 values = np.r_[rng.uniform(-.1, .1, 3), rng.normal(size=4)]
                 values[2] += .4
                 values[3:] /= np.linalg.norm(values[3:])
                 data_a.qpos[qa:qa+7] = data_b.qpos[qb:qb+7] = values
-            elif joint in (mujoco.mjtJoint.mjJNT_HINGE, mujoco.mjtJoint.mjJNT_SLIDE):
+            elif joint in (int(mujoco.mjtJoint.mjJNT_HINGE), int(mujoco.mjtJoint.mjJNT_SLIDE)):
                 limits = a.jnt_range[j] if a.jnt_limited[j] else [-.5, .5]
                 value = float(np.clip(0, *limits)) if pose == 0 else rng.uniform(*limits)
                 data_a.qpos[qa] = data_b.qpos[qb] = value

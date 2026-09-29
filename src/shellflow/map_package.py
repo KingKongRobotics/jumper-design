@@ -493,7 +493,7 @@ def compose_default(files: dict[str, bytes], *, profile: Path | None = None):
             site = model.site(prefix + spawn["site"])
             position = list(data.site_xpos[site.id])
         free = model.joint("floating_base")
-        if free.type != mujoco.mjtJoint.mjJNT_FREE:
+        if int(free.type[0]) != int(mujoco.mjtJoint.mjJNT_FREE):
             raise PackageError("default robot floating_base is not a free joint")
         address = int(free.qposadr[0])
         data.qpos[address:address + 3] = [position[0], position[1],

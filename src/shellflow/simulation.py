@@ -188,7 +188,7 @@ def compare_compiled(baseline, assembled):
     pose_corrections = {}
     for joint in range(right.njnt):
         if (right.jnt_limited[joint] and
-                right.jnt_type[joint] in (mujoco.mjtJoint.mjJNT_HINGE, mujoco.mjtJoint.mjJNT_SLIDE)):
+                int(right.jnt_type[joint]) in (int(mujoco.mjtJoint.mjJNT_HINGE), int(mujoco.mjtJoint.mjJNT_SLIDE))):
             address = right.jnt_qposadr[joint]
             before = float(data.qpos[address])
             after = float(np.clip(before, *right.jnt_range[joint]))
@@ -399,7 +399,7 @@ def assemble(shell, output, profile_path, *, ams3mf=None, faces=100000, lower_sh
             pose_model = load_mujoco(stage / 'robot.xml')
             pose_data = mujoco.MjData(pose_model)
             root_joint = mujoco.mj_name2id(pose_model, mujoco.mjtObj.mjOBJ_JOINT, 'floating_base')
-            if root_joint < 0 or pose_model.jnt_type[root_joint] != mujoco.mjtJoint.mjJNT_FREE:
+            if root_joint < 0 or int(pose_model.jnt_type[root_joint]) != int(mujoco.mjtJoint.mjJNT_FREE):
                 raise ValueError('Preview profile requires named floating base')
             pose_data.qpos[pose_model.jnt_qposadr[root_joint] + 2] = pose_info['base_height_m']
             for name, value in pose_info['joints'].items():

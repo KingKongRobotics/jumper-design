@@ -225,6 +225,35 @@ class UrdfTests(unittest.TestCase):
         self.assertLessEqual(result["max_absolute_errors"]["body_inertia_tensor_kg_m2"], 1e-9)
         self.assertFalse(result["physics_equivalent"])
 
+    @unittest.skipIf(mujoco is None, "Optional MuJoCo package is not installed")
+    def test_native_joint_dispatch_uses_numeric_enum_identity(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+
+        class IntegerConvertibleEnum:
+            # Native enum bindings need not compare equal to NumPy scalar IDs.
+            def __init__(self, value):
+                self.value = int(value)
+
+            def __int__(self):
+                return self.value
+
+            def __eq__(self, other):
+                return False
+
+        joint_types = SimpleNamespace(**{
+            name: IntegerConvertibleEnum(getattr(mujoco.mjtJoint, name))
+            for name in ("mjJNT_FREE", "mjJNT_BALL", "mjJNT_SLIDE", "mjJNT_HINGE")
+        })
+        for kind in ("hinge", "slide"):
+            with self.subTest(kind=kind):
+                self.output = self.directory / (kind + ".urdf")
+                self.export(SOURCE.replace('name="hinge" class=',
+                                           'name="hinge" type="' + kind + '" class='))
+                with patch.object(mujoco, "mjtJoint", joint_types):
+                    result = verify_urdf(self.source, self.output, poses=3)
+                self.assertTrue(result["passed"], result)
+
     def test_sensor_frame_without_authored_inertial_is_not_given_invented_mass(self):
         root = ET.fromstring(SOURCE)
         sensor = ET.SubElement(root.find("worldbody/body"), "body", name="sensor_frame")
