@@ -1,0 +1,34 @@
+{
+  "acquisition": "Included through Git LFS at the repository maintainer request. Install with platform_pack.py. Historical redistribution metadata is retained; inclusion does not grant a new source-asset license.",
+  "archive_bytes": 22953549,
+  "archive_path": "platforms/bundles/original-robot-v1.platform.zip",
+  "archive_sha256": "2ba248b68398b4beeabec246ebfba424def769bfb5fe9749ca21b86ac7975984",
+  "assembly_direction": "Original CAD +Z hole access from below",
+  "asset_bytes": 63625531,
+  "asset_count": 38,
+  "auxiliary_post_count": 2,
+  "display_name": "Original robot upper-shell interface v1",
+  "id": "original-robot-v1",
+  "interface_xy_envelope_mm": [
+    181.468188,
+    205.529053
+  ],
+  "limitations": [
+    "Historical metadata contains original machine paths; resolve runtime assets using platform.json.",
+    "No complete internal-component keepout model.",
+    "Current Jumper six-hole interface and physical fit remain unverified.",
+    "Auxiliary mounting function remains unconfirmed."
+  ],
+  "perimeter_function_faces": 96,
+  "physical_fit_tested": false,
+  "pillar_function_faces": 68,
+  "platform_manifest_sha256": "233f3593888e14406fa24756df0bd30e51d246e592c457b6ddf8a149b198251a",
+  "primary_post_count": 4,
+  "protected_function_face_count": 164,
+  "redistribution_status": "unconfirmed",
+  "schema_version": 1,
+  "scope": "Hash-bound original CAD, extracted interfaces, and metadata. Excludes generated character models, blank-shell cavity reference, rendering and slicer templates.",
+  "source_step_sha256": "40bcd073e930ee1b3070219b27f2d93c5277259a0eafad45b839ec09f83b8831",
+  "units": "millimeter",
+  "version": "original-step-40bcd073/ring-no-aux-duplicates"
+}
