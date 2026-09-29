@@ -25,9 +25,9 @@ BOUNDARY = ("Evidence is recorded, not certified. Simulation assembly can call t
             "or modified-shell dynamics certification are not performed by this control layer.")
 ACTIONS = {
     "requirements": "Record platform, closed/preserved front, permitted envelope, wall and printer requirements.",
-    "concept": "Create concepts within the platform envelope and record the user's chosen design.",
+    "concept": "Present appearance candidates and wait for the user to select one. Record selection.json with the actual user confirmation before choosing a modeling tool.",
     "multiview": "Create consistent views of the selected design; review front, back and sides.",
-    "appearance": "Import a user-provided or authorized-provider model; review actual geometry and record its axes and transform.",
+    "appearance": "After user selection, choose a suitable available tool per docs/providers.md; generate or import the selected design, review actual multiview geometry and colors, and record axes and transform. Never silently substitute primitive geometry.",
     "engineering": "Use a geometry producer to adapt the exterior, cavity and roots, then attach the protected CAD interfaces.",
     "validation": "Run independent checks on the actual exported mesh, interfaces, walls, access and permitted envelope; record detailed reports.",
     "ams": "Create a color 3MF from the frozen mesh and independently compare mesh, colors and actual previews.",
@@ -220,6 +220,21 @@ def input_fingerprint(job: dict, stage: str, platform: dict, engine: str) -> str
                         "engine_sha256": engine, "preceding_stage_records": previous})
 
 
+def validate_design_selection(project: Path, paths: list[Path]) -> None:
+    selections = [path for path in paths if path.name == "selection.json"]
+    if len(selections) != 1:
+        raise ValueError("Concept requires one selection.json recording the user's selected design.")
+    data = read_json(selections[0])
+    if not isinstance(data, dict) or data.get("schema") != "design-selection/1":
+        raise ValueError("Expected design-selection/1 selection evidence.")
+    for key in ("selected_design", "user_confirmation"):
+        if not isinstance(data.get(key), str) or not data[key].strip():
+            raise ValueError("Selection requires nonempty " + key)
+    refs = data.get("references")
+    if not isinstance(refs, list) or not refs or check_files(project, refs):
+        raise ValueError("Selection requires unchanged, project-relative design reference file records.")
+
+
 def inspect(root: Path, project: Path) -> dict:
     job = load_job(project)
     source_issues = check_files(project, job["sources"])
@@ -237,6 +252,11 @@ def inspect(root: Path, project: Path) -> dict:
         problems = []
         if record.get("status") == "recorded":
             problems.extend(check_files(project, record.get("artifacts", [])))
+            if stage == "concept":
+                try:
+                    validate_design_selection(project, [within(project, item["path"]) for item in record["artifacts"]])
+                except (ValueError, OSError, KeyError, TypeError) as error:
+                    problems.append({"reason": "invalid_design_selection", "detail": str(error)})
             if not record.get("artifacts"):
                 problems.append({"reason": "no_evidence_artifacts"})
             if record.get("input_fingerprint") != input_fingerprint(job, stage, platform, engine):
@@ -316,6 +336,8 @@ Front opening: `{args.front_opening}`. Units: millimeters. Keep original inputs 
 
 Follow the repository's workflow documentation and skills. Run `shellflow next {name}` to inspect evidence and the next stage. If the platform pack is unavailable, prepare requirements and concepts but do not invent mechanical interfaces. Confirm unknown requirements when they affect work. Providers and accounts belong to the user; do not infer authorization to spend credits or use paid services.
 
+For new appearance geometry, present candidates and wait for the user selection before choosing a modeling tool or modeling. Reuse an explicit existing user selection without asking again. Record evidence/selection.json per docs/workflow.md; never invent user confirmation. Follow docs/providers.md for tool choice and actual-model visual review.
+
 The stages are: {', '.join(STAGES)}.
 Each new shell requires both deliveries: printable STL and AMS 3MF, plus a full-robot URDF, MJCF, relative mesh assets and assembly report. Use `assemble` for the local simulation exporter after engineering. Retain the real robot's body/joint tree; do not invent a replacement robot.
 Use external producers for images, shell engineering, print validation and slicing. A checkpoint only records files and hashes; it does not certify their contents. Never convert `recorded` to a geometry/fit pass. Record actual exported-file checks and finite-check limitations. Reference printer presets are not confirmed hardware. Visual mounting with baseline collision and inertia does not certify new-shell collision dynamics. Digital checks do not replace physical fit testing.
@@ -351,6 +373,8 @@ def checkpoint(root: Path, args, *, robot_platform: str | None = None) -> dict:
         if args.stage != "simulation":
             raise ValueError("A robot platform override is only valid for simulation assembly.")
         job["simulation"]["robot_platform"] = slug(robot_platform)
+    if args.stage in ("multiview", "appearance", "engineering") and current["stages"]["concept"]["status"] != "recorded":
+        raise ValueError("Record a current user design selection at the concept checkpoint before modeling.")
     paths = []
     for value in args.artifact:
         path = Path(value)
@@ -363,6 +387,10 @@ def checkpoint(root: Path, args, *, robot_platform: str | None = None) -> dict:
         if path == project / "job.json":
             raise ValueError("job.json cannot be its own checkpoint artifact.")
         paths.append(path)
+    if args.stage == "concept":
+        validate_design_selection(project, paths)
+        if not all(path.is_relative_to(project) for path in paths if path.name == "selection.json"):
+            raise ValueError("Keep selection.json inside the project evidence directory.")
     records = []
     for source in paths:
         if source.is_relative_to(project):

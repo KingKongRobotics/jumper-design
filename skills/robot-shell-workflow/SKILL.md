@@ -7,6 +7,8 @@ description: Use Design Workflow to create, validate and exchange robot appearan
 
 The skill identifier remains `robot-shell-workflow` for compatibility. Select the appearance or environment route in `../../docs/workflow.md` first. Map work uses scene authoring/build/export and does not require a print-shell job or slicer. Use the mechanical engineering steps below only when producing a physical shell.
 
+For new appearance geometry, first present design candidates and wait for the user's explicit selection; only afterward choose the modeling route. An already explicitly selected design or supplied model needs no repeated confirmation. Record the selection and reference hashes using `docs/workflow.md`, then follow `docs/providers.md`. Tripo is optional. Do not silently replace a chosen complex design with primitive geometry. Review actual multiview and whole-robot renders before delivery. Package-only work on an unchanged asset does not need new concepts.
+
 This is a thin entrypoint into the repository, not a standalone CAD engine.
 
 Read `../../AGENTS.md` and `../../README.md` relative to this file. Run the repository's `scripts/shellflow.py` from its root. If the skill has been copied elsewhere without the repository, locate the user's checkout first; do not guess personal paths or claim that missing assets are installed.

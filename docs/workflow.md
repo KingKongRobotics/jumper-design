@@ -6,6 +6,43 @@ Choose a route before preparing tools or creating a task:
 - **Environment:** follow [scene and map production](#scene-and-map-production) to author terrain, props and challenges, include the default robot and spawn, and validate a `.map`. No print-shell task or slicing is required.
 - **Physical shell:** when requested, follow the engineering, printing and assembly stages below.
 
+## Appearance selection gate
+
+This applies to display-only appearances as well as physical shells:
+
+1. Interpret the brief and show distinct candidates with their silhouette, proportions and palette. Use concept images when the assistant has an authorized image tool; otherwise clearly label design sketches or descriptions and state that no model exists yet.
+2. Wait for an explicit user choice. A user-specified existing design/model counts as that choice; do not ask again. Never fabricate confirmation from silence or an assistant-selected default.
+3. Save the selected references and the user's actual confirmation. Choose the modeling route only afterward, following [provider and local modeling rules](providers.md). Tool discovery is not authorization to use a paid service.
+4. Generate the selected design and compare actual front, side, back and whole-robot color renders with the references. Check gray geometry, silhouette, proportions, characteristic details, palette and activity clearances. Revise mismatches before exporting. Material changes to the design require a new user selection.
+
+For a physical-shell ledger, create `evidence/selection.json` using this structure:
+
+```json
+{
+  "schema": "design-selection/1",
+  "selected_design": "candidate-a",
+  "user_confirmation": "Replace with the actual user statement selecting this design",
+  "references": [
+    {
+      "role": "selected_design",
+      "path": "evidence/candidate-a.png",
+      "sha256": "REPLACE_WITH_ACTUAL_FILE_SHA256",
+      "bytes": 12345
+    }
+  ]
+}
+```
+
+Paths are relative to the task directory. Use actual SHA256 and byte counts; references can be images, a supplied model or a selected written specification. Do not copy the placeholder as confirmation. Keep `selection.json` inside the task and register it:
+
+```sh
+python scripts/shellflow.py checkpoint bee-demo --stage concept --artifact evidence/selection.json
+```
+
+The concept checkpoint rejects missing/malformed selection evidence. `status`/`next` mark changed references stale, and multiview, appearance and engineering checkpoints require a current selection. The ledger checks records and hashes, not whether a human really spoke: the assistant must preserve truthful user evidence. It cannot prevent an external tool from being run outside the workflow.
+
+Display-only work keeps the same selection record in its working directory without creating a print job. Low-level package export, validation and unchanged-asset repackaging remain usable independently and do not enforce creative approval. Existing ledgers lacking selection evidence must recover a real prior choice or obtain one before new modeling; do not fabricate migration evidence.
+
 ## Physical-shell production
 
 The initial scope is **changing appearance on the same crab robot**. The mechanical print platform is the user-installed and checked `original-robot-v1`; do not guess its mounting interface anew. New tasks now default to the `jumper` whole-robot simulation baseline, while existing tasks keep their selection. Mechanical platform and complete-robot model are versioned separately. Historical v0.2 tasks used `jumper-v1-6`; the commands below describe the current default.
@@ -14,12 +51,13 @@ The initial scope is **changing appearance on the same crab robot**. The mechani
 
 Once: obtain the repository and Git LFS assets, install a platform bundle you have rights to use, prepare Python and local modeling/slicing tools, and use your own AI/model-service accounts. Whole-robot export also requires optional `.[sim]` dependencies. Verify separately whether each tool runs and supports the current system; the control layer does not install CAD dependencies.
 
-For each creation, the AI interprets the request, organizes requirements, reads project status, and runs only affected stages. When the user asks to select a concept first, stop at concept selection and resume the same task after selection. Otherwise the AI can make routine design decisions from the supplied constraints. Login verification, missing inputs, or real-printer details may still need user participation.
+For each creation, the AI interprets the request, organizes requirements, reads project status, and runs only affected stages. For every new appearance, stop at concept selection and wait for the user before choosing a modeling tool or creating geometry. Reuse an explicit existing user selection; routine implementation decisions must preserve that design. Login verification, missing inputs, or real-printer details may still need user participation.
 
 ```mermaid
 flowchart TD
     A[Requirements and mechanical platform] --> B[Appearance concepts and user selection]
-    B --> C[Consistent multiview images]
+    B --> T[Choose available modeling route after selection]
+    T --> C[Consistent multiview images]
     C --> D[Model service generation or GLB import]
     D --> E[Real gray-mesh review and millimeter positioning]
     E --> F[Lateral limits, hollowing, cavity, and roots]

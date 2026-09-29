@@ -39,7 +39,12 @@ class WorkflowTests(unittest.TestCase):
     def checkpoint(self, project, stage):
         evidence = project / "evidence" / f"{stage}.json"
         evidence.write_text('{"passed":true}', encoding="utf-8")
-        code, result = self.invoke("checkpoint", "pirate-a", "--stage", stage, "--artifact", f"evidence/{stage}.json")
+        artifact = f"evidence/{stage}.json"
+        if stage == "concept":
+            artifact = "evidence/selection.json"
+            cli.write_json(project / artifact, {"schema": "design-selection/1", "selected_design": "candidate-a",
+                "user_confirmation": "Use candidate A", "references": [cli.file_record(evidence, project, "selected_design")]})
+        code, result = self.invoke("checkpoint", "pirate-a", "--stage", stage, "--artifact", artifact)
         self.assertEqual(code, 0, result)
         return result
 
@@ -279,9 +284,34 @@ print(json.dumps({'ok':True,'output':str(args.output)}))
         self.assertEqual(code, 2)
         self.assertIsNone(cli.read_json(project / "job.json")["platform"]["manifest_sha256"])
         self.checkpoint(project, "requirements")
+        self.checkpoint(project, "concept")
         code, record = self.invoke("checkpoint", "pirate-a", "--stage", "engineering", "--artifact", "evidence/requirements.json")
         self.assertEqual(code, 0)
         self.assertEqual(record["verification"], "pending")
+
+    def test_selection_gate_rejects_missing_confirmation_and_changed_reference(self):
+        project = self.start()
+        self.checkpoint(project, "requirements")
+        before = (project / "job.json").read_bytes()
+        for stage in ("concept", "multiview", "appearance", "engineering"):
+            code, result = self.invoke("checkpoint", "pirate-a", "--stage", stage,
+                                       "--artifact", "evidence/requirements.json")
+            self.assertEqual(code, 2, result)
+            self.assertEqual((project / "job.json").read_bytes(), before)
+        self.checkpoint(project, "concept")
+        self.checkpoint(project, "appearance")
+        selection = project / "evidence/selection.json"
+        data = cli.read_json(selection)
+        data["user_confirmation"] = " "
+        cli.write_json(selection, data)
+        self.assertEqual(self.invoke("checkpoint", "pirate-a", "--stage", "concept",
+                                     "--artifact", "evidence/selection.json")[0], 2)
+        self.checkpoint(project, "concept")
+        (project / "evidence/concept.json").write_text("changed design", encoding="utf-8")
+        state = self.invoke("status", "pirate-a")[1]
+        self.assertEqual(state["stages"]["concept"]["status"], "stale")
+        self.assertEqual(self.invoke("checkpoint", "pirate-a", "--stage", "appearance",
+                                     "--artifact", "evidence/requirements.json")[0], 2)
 
     def test_doctor_does_not_claim_environment_ready(self):
         code, result = self.invoke("doctor")
