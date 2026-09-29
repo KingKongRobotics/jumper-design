@@ -6,8 +6,8 @@ Use Python 3.10 or newer. Install Git LFS before cloning so the sample archives 
 
 ```sh
 git lfs install
-git clone https://github.com/KingKongRobotics/kingkong-design.git
-cd kingkong-design
+git clone https://github.com/KingKongRobotics/jumper-design.git
+cd jumper-design
 git lfs pull
 python -m pip install -e ".[sim,dev]"
 ```

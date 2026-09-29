@@ -24,7 +24,7 @@ Read the [content package protocol](docs/content-packages.md) first. Deliver app
 - Do not promote `source_provided_unverified` to printable or physically tested by editing a manifest `passed` field. The generic geometry/manufacturing backend has not all been migrated; the package format does not invent acceptance evidence.
 - Use an appropriate working model for normal implementation, a lightweight model for independent reading/checks, and scripts for fixed calculations and batch validation. Reserve advanced models for architecture and materially complex issues. Never remove required acceptance checks to save tokens.
 
-Read the README capability table before using the public CLI. v0.2 already has an asset library and whole-robot assembly exporter; generic modeling, hollowing, and manufacturing acceptance backends are still being migrated. Do not claim missing backends ran, install paths from someone else's historical computer, or copy browser identity.
+Read [the quick-start guide](docs/quickstart.md) and [documentation index](docs/index.md) before using the public CLI. v0.2 already has an asset library and whole-robot assembly exporter; generic modeling, hollowing, and manufacturing acceptance backends are still being migrated. Do not claim missing backends ran, install paths from someone else's historical computer, or copy browser identity.
 
 ## Starting and resuming physical-shell work
 
