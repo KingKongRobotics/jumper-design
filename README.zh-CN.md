@@ -2,7 +2,7 @@
 
 [English](README.md) | **简体中文**
 
-为 **跳跳** 这款 22 自由度螃蟹机器人设计外观并创建场景。
+为 **跳跳** 这款 22 自由度螃蟹机器人设计外观并创建场景。[查看硬件 →](https://github.com/KingKongRobotics/jumper/blob/main/docs/HARDWARE.zh.md)
 
 在 AI 编程助手中打开本仓库，用一句话描述你想要的内容。下面的指南会为助手提供相应的工作流。
 

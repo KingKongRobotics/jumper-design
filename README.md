@@ -2,7 +2,7 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-Design appearances and create worlds for **Jumper**, a 22-DoF crab robot.
+Design appearances and create worlds for **Jumper**, a 22-DoF crab robot. [View hardware →](https://github.com/KingKongRobotics/jumper/blob/main/docs/HARDWARE.md)
 
 Open this repository in an AI coding assistant and describe what you want in one sentence. The linked guides below give your assistant the workflows to follow.
 
