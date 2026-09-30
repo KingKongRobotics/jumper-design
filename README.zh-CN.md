@@ -4,9 +4,9 @@
 
 为 **跳跳** 这款 22 自由度螃蟹机器人设计外观并创建场景。
 
-> 🦀 **免费获得跳跳！** [了解如何领取 →](https://beunlimited.me/zh/events/crab-robot-challenge-2026)
-
 在 AI 编程助手中打开本仓库，用一句话描述你想要的内容。下面的指南会为助手提供相应的工作流。
+
+> 🦀 **免费获得跳跳！** [了解如何领取 →](https://beunlimited.me/zh/events/crab-robot-challenge-2026)
 
 ## 一句话，设计外观
 
