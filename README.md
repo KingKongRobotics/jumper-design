@@ -4,6 +4,8 @@
 
 Design appearances and create worlds for **Jumper**, a 22-DoF crab robot.
 
+> 🦀 **Get a free Jumper!** [Find out how →](https://beunlimited.me/zh/events/crab-robot-challenge-2026)
+
 Open this repository in an AI coding assistant and describe what you want in one sentence. The linked guides below give your assistant the workflows to follow.
 
 ## One sentence to design an appearance
