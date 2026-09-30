@@ -31,3 +31,6 @@ Baseline-preserved collision and inertia do not validate new-shell dynamics.
 The library contains actual historical final assets, including entries explicitly marked `needs-review`. Use their IDs and SHA records, fetch Git LFS assets, and do not silently turn historical reports into a new acceptance pass.
 
 Publish current display-only `.skin/3` releases via `scripts/publish_content.py` into `library/skins/`. Use `library/maps/` for `.map/2`, which bundles a complete default robot and spawn; verify composed robot presence and spawn clearance, including pouring maps. Keep print sources separate and build outputs out of Git. Follow `docs/git-storage.md` for LFS, naming, indexes, and version replacement.
+
+
+For maps, align every walkable visual surface with robot-compatible collision support. Spawn specifies the actual support-floor elevation, not root height. Never fix missing road collision by only raising spawn or enabling collision on an entire material-merged mesh. Run native composition for spawn support and visual/collision height checks. Review footprint and route coverage and perform a short intended-controller test before claiming runtime acceptance. Mark untested dynamics and target-runtime behavior explicitly. See docs/workflow.md#walkable-surfaces-and-spawn-acceptance.

@@ -98,6 +98,8 @@ If the request truly requires a framework change, explain why and ask before cha
 10. Include lighting, ground, sky, at least one dynamic object, explicit friction or collision settings,
     and at least one camera view.
 11. Omit uncertain fields and use their defaults. Do not invent field names.
+12. Every walkable road, lawn, bridge and ramp needs collision support at its visible elevation. Decorative noncolliding geometry cannot support a robot. Do not use a lower hidden plane for an elevated road or convex-hull collision on an entire material-merged scene mesh. Use suitable primitives, heightfields or reviewed collision decomposition.
+13. Spawn is a support-floor point at the actual local elevation; apply the robot base offset separately. Raising spawn alone cannot fix missing collisions. Check support, visible/collision alignment, footprint and ramp transitions. Native loading alone is not dynamics acceptance; perform a short intended-controller run before claiming the scene is runnable.
 """
 
 SHAPE_NOTE = """

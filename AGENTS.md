@@ -36,6 +36,8 @@ Read [the quick-start guide](docs/quickstart.md) and [documentation index](docs/
 6. If a stage executor has not been implemented, identify the specific gap. Checked, project-specific adapter code may be built in the task directory, but never invoke unknown historical external scripts or reuse face indices from another shape.
 7. Every new upper shell requires both print and whole-robot simulation delivery. Once the print part is frozen, run `assemble PROJECT --shell FILE` with the real robot, inspect output and report, then register `simulation`. Report completion only after both deliveries have actually met their requirements and limitations are clear.
 
+For maps, align every walkable visual surface with robot-compatible collision support. Spawn specifies the actual support-floor elevation, not root height. Never fix missing road collision by only raising spawn or enabling collision on an entire material-merged mesh. Run native composition for spawn support and visual/collision height checks. Review footprint and route coverage and perform a short intended-controller test before claiming runtime acceptance. Mark untested dynamics and target-runtime behavior explicitly. See docs/workflow.md#walkable-surfaces-and-spawn-acceptance.
+
 ## Engineering rules
 
 - Follow [engineering and acceptance](docs/engineering-and-acceptance.md). Preserve original inputs; modify an appearance copy and add the exact interface last.

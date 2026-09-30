@@ -285,3 +285,26 @@ def test_mjscene_cli_package_target_writes_map(tmp_path, capsys):
     capsys.readouterr()
     output = scene / "export" / "package" / "minimal.map"
     assert validate(read_archive(output, limits=MAP_LIMITS))["id"] == "minimal"
+
+
+def test_export_rejects_visual_road_without_matching_support(tmp_path, package):
+    from shellflow.map_package import export_environment
+    _, files, manifest = package
+    environment = {n: b for n, b in files.items() if not n.startswith("robot/")}
+    scene = ET.fromstring(environment["scene.xml"])
+    ET.SubElement(scene.find("worldbody"), "geom", name="raised_visual_road",
+                  type="box", size="1 1 .01", pos="0 0 .1018",
+                  contype="0", conaffinity="0")
+    environment["scene.xml"] = ET.tostring(scene)
+    legacy = copy.deepcopy(manifest)
+    legacy["schema"] = "kk-scene-package/1"
+    legacy.pop("robot")
+    legacy["world"]["counts"]["geoms"] += 1
+    legacy["world"].setdefault("decorativeGeoms", []).append("raised_visual_road")
+    legacy["files"] = file_records({n: b for n,b in environment.items()
+                                   if n not in ("scene-package.json", "README.md", "LICENSE")})
+    environment = _with_manifest(environment, legacy)
+    output = tmp_path / "must-not-exist.map"
+    with pytest.raises(PackageError, match="visual/collision surface mismatch"):
+        export_environment(environment, output, DEFAULT_SKIN, PROFILE)
+    assert not output.exists()

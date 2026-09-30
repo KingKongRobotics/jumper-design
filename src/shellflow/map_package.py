@@ -395,10 +395,12 @@ def export_environment(environment_files: dict[str, bytes], output: Path,
     files[MANIFEST] = (json.dumps(manifest, ensure_ascii=False, sort_keys=True,
                                    separators=(",", ":")) + "\n").encode("utf-8")
     validate(files, platform_profile=Path(profile))
+    _, _, composition = compose_default(files, profile=Path(profile))
     write_archive(output, files, limits=MAP_LIMITS)
     return {"ok": True, "schema": SCHEMA, "id": manifest["id"],
             "output": str(output), "sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
-            "file_count": len(files), "robot": manifest["robot"]}
+            "file_count": len(files), "robot": manifest["robot"],
+            "spawn_support": composition["spawn_support"]}
 
 
 def compose_default(files: dict[str, bytes], *, profile: Path | None = None):
@@ -529,6 +531,8 @@ def compose_default(files: dict[str, bytes], *, profile: Path | None = None):
         if severe:
             raise PackageError("default robot spawn penetrates environment: "
                                + json.dumps(severe[:5], ensure_ascii=False))
+        from .support_surface import check_spawn_surfaces
+        support_report = check_spawn_surfaces(model, data, scene_geoms, position)
     except (ValueError, KeyError, RuntimeError, TypeError) as exc:
         raise PackageError(f"Native default robot composition failed: {exc}") from exc
     report = {"passed": True, "schema": SCHEMA, "map_id": manifest["id"],
@@ -537,6 +541,7 @@ def compose_default(files: dict[str, bytes], *, profile: Path | None = None):
               "combined_joints": model.njnt, "combined_geoms": model.ngeom,
               "spawn_applied": True, "spawn": spawn,
               "preview_pose_applied": bool(pose),
+              "spawn_support": support_report,
               "severe_spawn_contacts": 0,
               "minimum_non_ground_contact_distance_m": (
                   min(contact_distances) if contact_distances else None),
